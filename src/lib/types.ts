@@ -47,6 +47,13 @@ export interface DefaultOwners {
   STYRING: string;
 }
 
+export interface ProsessEier {
+  id: string;
+  navn: string;
+  avdeling: string;
+  tittel: string;
+}
+
 export interface ProcessHierarchy {
   level1: ProcessLevel1[];
   level2: ProcessLevel2[];
@@ -72,7 +79,8 @@ export interface Initiativ {
   avhengigheter: string;
   leverandorbinding: boolean;
   leverandorbindingKommentar: string;
-  risikoTillit: Nivaa;
+  risikoSannsynlighet: Nivaa;
+  risikoKonsekvens: Nivaa;
   gevinstMaalbar: boolean;
   gevinstMaalbarKommentar: string;
   opprettet: string;
@@ -82,4 +90,5 @@ export interface Initiativ {
 export interface Database {
   processHierarchy: ProcessHierarchy;
   initiatives: Initiativ[];
+  eiere: ProsessEier[];
 }

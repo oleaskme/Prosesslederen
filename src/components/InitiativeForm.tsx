@@ -38,7 +38,8 @@ const tomtSkjema: InitiativFormValues = {
   avhengigheter: "",
   leverandorbinding: false,
   leverandorbindingKommentar: "",
-  risikoTillit: "lav",
+  risikoSannsynlighet: "lav",
+  risikoKonsekvens: "lav",
   gevinstMaalbar: false,
   gevinstMaalbarKommentar: "",
 };
@@ -86,7 +87,8 @@ export default function InitiativeForm({
           avhengigheter: initial.avhengigheter,
           leverandorbinding: initial.leverandorbinding,
           leverandorbindingKommentar: initial.leverandorbindingKommentar,
-          risikoTillit: initial.risikoTillit,
+          risikoSannsynlighet: initial.risikoSannsynlighet,
+          risikoKonsekvens: initial.risikoKonsekvens,
           gevinstMaalbar: initial.gevinstMaalbar,
           gevinstMaalbarKommentar: initial.gevinstMaalbarKommentar,
         }
@@ -332,20 +334,43 @@ export default function InitiativeForm({
         </Felt>
       </div>
 
+      <div>
+        <span className="mb-1 block text-sm font-medium text-slate-700">Risiko for tillit</span>
+        <div className="grid gap-4 sm:grid-cols-2">
+          <Felt label="Sannsynlighet">
+            <select
+              className={inputClass}
+              value={values.risikoSannsynlighet}
+              onChange={(e) =>
+                set("risikoSannsynlighet", e.target.value as InitiativFormValues["risikoSannsynlighet"])
+              }
+            >
+              {nivaaOptions.map((n) => (
+                <option key={n} value={n}>
+                  {nivaaLabels[n]}
+                </option>
+              ))}
+            </select>
+          </Felt>
+          <Felt label="Konsekvens">
+            <select
+              className={inputClass}
+              value={values.risikoKonsekvens}
+              onChange={(e) =>
+                set("risikoKonsekvens", e.target.value as InitiativFormValues["risikoKonsekvens"])
+              }
+            >
+              {nivaaOptions.map((n) => (
+                <option key={n} value={n}>
+                  {nivaaLabels[n]}
+                </option>
+              ))}
+            </select>
+          </Felt>
+        </div>
+      </div>
+
       <div className="grid gap-4 sm:grid-cols-2">
-        <Felt label="Risiko for tillit">
-          <select
-            className={inputClass}
-            value={values.risikoTillit}
-            onChange={(e) => set("risikoTillit", e.target.value as InitiativFormValues["risikoTillit"])}
-          >
-            {nivaaOptions.map((n) => (
-              <option key={n} value={n}>
-                {nivaaLabels[n]}
-              </option>
-            ))}
-          </select>
-        </Felt>
         <div>
           <span className="mb-1 block text-sm font-medium text-slate-700">Kan gevinsten måles</span>
           <div className="flex gap-4 py-1">
@@ -369,15 +394,14 @@ export default function InitiativeForm({
             </label>
           </div>
         </div>
+        <Felt label="Kan gevinsten måles, kommentar">
+          <input
+            className={inputClass}
+            value={values.gevinstMaalbarKommentar}
+            onChange={(e) => set("gevinstMaalbarKommentar", e.target.value)}
+          />
+        </Felt>
       </div>
-
-      <Felt label="Kan gevinsten måles, kommentar">
-        <input
-          className={inputClass}
-          value={values.gevinstMaalbarKommentar}
-          onChange={(e) => set("gevinstMaalbarKommentar", e.target.value)}
-        />
-      </Felt>
 
       <div className="flex items-center justify-between border-t border-slate-200 pt-4">
         <div>

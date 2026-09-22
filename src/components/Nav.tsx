@@ -6,8 +6,9 @@ import { usePathname } from "next/navigation";
 const faner = [
   { href: "/initiativer", label: "Initiativoversikt" },
   { href: "/prioriteringsmatrise", label: "Prioriteringsmatrise" },
-  { href: "/admin", label: "Admin" },
+  { href: "/risikomatrise", label: "Risikomatrise" },
   { href: "/fremdrift", label: "Fremdrift" },
+  { href: "/admin", label: "Admin" },
 ];
 
 export default function Nav() {

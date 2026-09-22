@@ -3,6 +3,7 @@
 import { useState } from "react";
 import type { Delprosess, ProcessHierarchy } from "@/lib/types";
 import { buttonGhost, buttonPrimary, cardAccent, inputClass } from "@/lib/ui";
+import EiereRegister from "@/components/admin/EiereRegister";
 
 const delprosessOrder: Delprosess[] = ["PLAN", "GJENNOMFØRING", "STYRING"];
 
@@ -43,6 +44,8 @@ export default function ProsesseierePanel({
           gevinsteier, som settes per initiativ i fane Initiativoversikt.
         </p>
       </div>
+
+      <EiereRegister />
 
       <div className={cardAccent("indigo")}>
         <h3 className="font-medium text-slate-900">Standard prosesseiere per delprosess</h3>
