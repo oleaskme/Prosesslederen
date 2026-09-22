@@ -20,6 +20,8 @@ export type Kompleksitet = "lav" | "høy";
 
 export type Nivaa = "lav" | "middels" | "høy";
 
+export type RisikoSkala = 1 | 2 | 3 | 4 | 5;
+
 export interface ProcessLevel1 {
   id: string;
   kode: string;
@@ -79,8 +81,8 @@ export interface Initiativ {
   avhengigheter: string;
   leverandorbinding: boolean;
   leverandorbindingKommentar: string;
-  risikoSannsynlighet: Nivaa;
-  risikoKonsekvens: Nivaa;
+  risikoSannsynlighet: RisikoSkala;
+  risikoKonsekvens: RisikoSkala;
   gevinstMaalbar: boolean;
   gevinstMaalbarKommentar: string;
   opprettet: string;

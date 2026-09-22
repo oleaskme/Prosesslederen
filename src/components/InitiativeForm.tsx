@@ -10,6 +10,8 @@ import {
   nivaaOptions,
   ragLabels,
   ragOptions,
+  risikoSkalaLabels,
+  risikoSkalaOptions,
   statusLabels,
   statusOptions,
   tidsperspektivLabels,
@@ -38,8 +40,8 @@ const tomtSkjema: InitiativFormValues = {
   avhengigheter: "",
   leverandorbinding: false,
   leverandorbindingKommentar: "",
-  risikoSannsynlighet: "lav",
-  risikoKonsekvens: "lav",
+  risikoSannsynlighet: 1,
+  risikoKonsekvens: 1,
   gevinstMaalbar: false,
   gevinstMaalbarKommentar: "",
 };
@@ -341,13 +343,11 @@ export default function InitiativeForm({
             <select
               className={inputClass}
               value={values.risikoSannsynlighet}
-              onChange={(e) =>
-                set("risikoSannsynlighet", e.target.value as InitiativFormValues["risikoSannsynlighet"])
-              }
+              onChange={(e) => set("risikoSannsynlighet", Number(e.target.value) as InitiativFormValues["risikoSannsynlighet"])}
             >
-              {nivaaOptions.map((n) => (
+              {risikoSkalaOptions.map((n) => (
                 <option key={n} value={n}>
-                  {nivaaLabels[n]}
+                  {n} · {risikoSkalaLabels[n]}
                 </option>
               ))}
             </select>
@@ -356,13 +356,11 @@ export default function InitiativeForm({
             <select
               className={inputClass}
               value={values.risikoKonsekvens}
-              onChange={(e) =>
-                set("risikoKonsekvens", e.target.value as InitiativFormValues["risikoKonsekvens"])
-              }
+              onChange={(e) => set("risikoKonsekvens", Number(e.target.value) as InitiativFormValues["risikoKonsekvens"])}
             >
-              {nivaaOptions.map((n) => (
+              {risikoSkalaOptions.map((n) => (
                 <option key={n} value={n}>
-                  {nivaaLabels[n]}
+                  {n} · {risikoSkalaLabels[n]}
                 </option>
               ))}
             </select>

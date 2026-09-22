@@ -171,8 +171,8 @@
       "avhengigheter": "Ingen kjente.",
       "leverandorbinding": false,
       "leverandorbindingKommentar": "",
-      "risikoSannsynlighet": "lav",
-      "risikoKonsekvens": "lav",
+      "risikoSannsynlighet": 2,
+      "risikoKonsekvens": 2,
       "gevinstMaalbar": true,
       "gevinstMaalbarKommentar": "",
       "opprettet": "2026-01-01T08:00:00.000Z",
@@ -196,8 +196,8 @@
       "avhengigheter": "Ingen kjente.",
       "leverandorbinding": false,
       "leverandorbindingKommentar": "",
-      "risikoSannsynlighet": "middels",
-      "risikoKonsekvens": "lav",
+      "risikoSannsynlighet": 3,
+      "risikoKonsekvens": 2,
       "gevinstMaalbar": true,
       "gevinstMaalbarKommentar": "Antall regneark med registrert eier, målt over tid.",
       "opprettet": "2026-01-05T08:00:00.000Z",
@@ -221,8 +221,8 @@
       "avhengigheter": "Navngitt dataeier må være på plass.",
       "leverandorbinding": false,
       "leverandorbindingKommentar": "",
-      "risikoSannsynlighet": "lav",
-      "risikoKonsekvens": "middels",
+      "risikoSannsynlighet": 2,
+      "risikoKonsekvens": 3,
       "gevinstMaalbar": true,
       "gevinstMaalbarKommentar": "",
       "opprettet": "2026-01-10T08:00:00.000Z",
@@ -246,8 +246,8 @@
       "avhengigheter": "Avklaring med internkontrollmiljøet om erstatningskontroll.",
       "leverandorbinding": false,
       "leverandorbindingKommentar": "",
-      "risikoSannsynlighet": "middels",
-      "risikoKonsekvens": "høy",
+      "risikoSannsynlighet": 3,
+      "risikoKonsekvens": 4,
       "gevinstMaalbar": true,
       "gevinstMaalbarKommentar": "",
       "opprettet": "2026-01-12T08:00:00.000Z",
@@ -255,13 +255,53 @@
     }
   ],
   "eiere": [
-    { "id": "eier-01", "navn": "Kari Solberg", "avdeling": "Styringsdata- og digitaliseringsseksjonen", "tittel": "Seksjonssjef" },
-    { "id": "eier-02", "navn": "Per Haugen", "avdeling": "Regnskapsseksjonen", "tittel": "Fagansvarlig regnskap" },
-    { "id": "eier-03", "navn": "Anne Lie Bakken", "avdeling": "Budsjettseksjonen", "tittel": "Rådgiver" },
-    { "id": "eier-04", "navn": "Erik Nordahl", "avdeling": "Controllerseksjonen", "tittel": "Controller" },
-    { "id": "eier-05", "navn": "Ingrid Fjeld", "avdeling": "Styringsdata- og digitaliseringsseksjonen", "tittel": "Prosjektleder digitalisering" },
-    { "id": "eier-06", "navn": "Thomas Berge", "avdeling": "Økonomistyringsseksjonen", "tittel": "Seniorrådgiver" },
-    { "id": "eier-07", "navn": "Mona Skaug", "avdeling": "Regnskapsseksjonen", "tittel": "Regnskapsmedarbeider" },
-    { "id": "eier-08", "navn": "Lars Vik", "avdeling": "IT-seksjonen", "tittel": "Systemansvarlig" }
+    {
+      "id": "eier-01",
+      "navn": "Kari Solberg",
+      "avdeling": "Styringsdata- og digitaliseringsseksjonen",
+      "tittel": "Seksjonssjef"
+    },
+    {
+      "id": "eier-02",
+      "navn": "Per Haugen",
+      "avdeling": "Regnskapsseksjonen",
+      "tittel": "Fagansvarlig regnskap"
+    },
+    {
+      "id": "eier-03",
+      "navn": "Anne Lie Bakken",
+      "avdeling": "Budsjettseksjonen",
+      "tittel": "Rådgiver"
+    },
+    {
+      "id": "eier-04",
+      "navn": "Erik Nordahl",
+      "avdeling": "Controllerseksjonen",
+      "tittel": "Controller"
+    },
+    {
+      "id": "eier-05",
+      "navn": "Ingrid Fjeld",
+      "avdeling": "Styringsdata- og digitaliseringsseksjonen",
+      "tittel": "Prosjektleder digitalisering"
+    },
+    {
+      "id": "eier-06",
+      "navn": "Thomas Berge",
+      "avdeling": "Økonomistyringsseksjonen",
+      "tittel": "Seniorrådgiver"
+    },
+    {
+      "id": "eier-07",
+      "navn": "Mona Skaug",
+      "avdeling": "Regnskapsseksjonen",
+      "tittel": "Regnskapsmedarbeider"
+    },
+    {
+      "id": "eier-08",
+      "navn": "Lars Vik",
+      "avdeling": "IT-seksjonen",
+      "tittel": "Systemansvarlig"
+    }
   ]
 }

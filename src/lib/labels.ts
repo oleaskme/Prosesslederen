@@ -5,6 +5,7 @@ import type {
   Nivaa,
   ProcessRelevans,
   RagStatus,
+  RisikoSkala,
   Tidsperspektiv,
 } from "./types";
 
@@ -68,6 +69,16 @@ export const nivaaLabels: Record<Nivaa, string> = {
 };
 
 export const nivaaOptions: Nivaa[] = ["lav", "middels", "høy"];
+
+export const risikoSkalaLabels: Record<RisikoSkala, string> = {
+  1: "Svært lav",
+  2: "Lav",
+  3: "Middels",
+  4: "Høy",
+  5: "Svært høy",
+};
+
+export const risikoSkalaOptions: RisikoSkala[] = [1, 2, 3, 4, 5];
 
 export const relevansLabels: Record<ProcessRelevans, string> = {
   kjerne: "Kjerne",
