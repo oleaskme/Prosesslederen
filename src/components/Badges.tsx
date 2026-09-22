@@ -22,7 +22,7 @@ export function Pill({ children, tone = "default" }: { children: React.ReactNode
   return (
     <span
       className={`inline-flex rounded-full px-2 py-0.5 text-xs font-medium ${
-        tone === "muted" ? "bg-slate-100 text-slate-500" : "bg-slate-100 text-slate-700"
+        tone === "muted" ? "bg-slate-100 text-slate-500" : "bg-indigo-50 text-indigo-700"
       }`}
     >
       {children}

@@ -14,11 +14,12 @@ export default function Nav() {
   const pathname = usePathname();
 
   return (
-    <header className="border-b border-slate-200 bg-white">
+    <header className="bg-gradient-to-r from-indigo-950 via-indigo-900 to-slate-900 shadow-sm">
       <div className="mx-auto flex max-w-7xl flex-wrap items-center gap-4 px-4 py-3 sm:px-6">
-        <div className="flex items-baseline gap-2">
-          <span className="text-lg font-semibold text-slate-900">Prosesslederen</span>
-          <span className="rounded bg-slate-100 px-2 py-0.5 text-xs font-medium text-slate-500">
+        <div className="flex items-center gap-2.5">
+          <span className="h-7 w-7 rounded-lg bg-gradient-to-br from-sky-400 to-indigo-500 shadow-inner" />
+          <span className="text-lg font-semibold tracking-tight text-white">Prosesslederen</span>
+          <span className="rounded-full border border-white/15 bg-white/10 px-2 py-0.5 text-xs font-medium text-indigo-100">
             POC · kun ugradert informasjon
           </span>
         </div>
@@ -29,10 +30,10 @@ export default function Nav() {
               <Link
                 key={fane.href}
                 href={fane.href}
-                className={`rounded-md px-3 py-1.5 text-sm font-medium transition-colors ${
+                className={`rounded-full px-3.5 py-1.5 text-sm font-medium transition-colors ${
                   active
-                    ? "bg-slate-900 text-white"
-                    : "text-slate-600 hover:bg-slate-100 hover:text-slate-900"
+                    ? "bg-white text-indigo-900 shadow-sm"
+                    : "text-indigo-100 hover:bg-white/10 hover:text-white"
                 }`}
               >
                 {fane.label}

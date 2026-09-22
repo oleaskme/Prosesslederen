@@ -17,6 +17,7 @@ import {
 } from "@/lib/labels";
 import type { ProcessOption } from "@/lib/processHelpers";
 import type { Initiativ } from "@/lib/types";
+import { buttonDanger, buttonGhost, buttonPrimary, inputClass } from "@/lib/ui";
 
 export type InitiativFormValues = Omit<Initiativ, "id" | "opprettet" | "oppdatert">;
 
@@ -50,9 +51,6 @@ function Felt({ label, children }: { label: string; children: React.ReactNode })
     </label>
   );
 }
-
-const inputClass =
-  "w-full rounded-md border border-slate-300 px-3 py-1.5 text-sm text-slate-900 focus:border-slate-500 focus:outline-none focus:ring-1 focus:ring-slate-500";
 
 export default function InitiativeForm({
   initial,
@@ -308,6 +306,7 @@ export default function InitiativeForm({
             <label className="flex items-center gap-1.5 text-sm text-slate-700">
               <input
                 type="radio"
+                className="accent-indigo-600"
                 checked={values.leverandorbinding}
                 onChange={() => set("leverandorbinding", true)}
               />
@@ -316,6 +315,7 @@ export default function InitiativeForm({
             <label className="flex items-center gap-1.5 text-sm text-slate-700">
               <input
                 type="radio"
+                className="accent-indigo-600"
                 checked={!values.leverandorbinding}
                 onChange={() => set("leverandorbinding", false)}
               />
@@ -352,6 +352,7 @@ export default function InitiativeForm({
             <label className="flex items-center gap-1.5 text-sm text-slate-700">
               <input
                 type="radio"
+                className="accent-indigo-600"
                 checked={values.gevinstMaalbar}
                 onChange={() => set("gevinstMaalbar", true)}
               />
@@ -360,6 +361,7 @@ export default function InitiativeForm({
             <label className="flex items-center gap-1.5 text-sm text-slate-700">
               <input
                 type="radio"
+                className="accent-indigo-600"
                 checked={!values.gevinstMaalbar}
                 onChange={() => set("gevinstMaalbar", false)}
               />
@@ -380,28 +382,16 @@ export default function InitiativeForm({
       <div className="flex items-center justify-between border-t border-slate-200 pt-4">
         <div>
           {onDelete && (
-            <button
-              type="button"
-              onClick={onDelete}
-              className="rounded-md px-3 py-1.5 text-sm font-medium text-red-600 hover:bg-red-50"
-            >
+            <button type="button" onClick={onDelete} className={buttonDanger}>
               Slett initiativ
             </button>
           )}
         </div>
         <div className="flex gap-2">
-          <button
-            type="button"
-            onClick={onCancel}
-            className="rounded-md px-3 py-1.5 text-sm font-medium text-slate-600 hover:bg-slate-100"
-          >
+          <button type="button" onClick={onCancel} className={buttonGhost}>
             Avbryt
           </button>
-          <button
-            type="submit"
-            disabled={lagrer}
-            className="rounded-md bg-slate-900 px-4 py-1.5 text-sm font-medium text-white hover:bg-slate-700 disabled:opacity-60"
-          >
+          <button type="submit" disabled={lagrer} className={buttonPrimary}>
             {lagrer ? "Lagrer..." : submitLabel}
           </button>
         </div>

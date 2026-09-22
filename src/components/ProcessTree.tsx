@@ -8,7 +8,12 @@ import { RelevansBadge } from "@/components/Badges";
 const delprosessOptions: Delprosess[] = ["PLAN", "GJENNOMFØRING", "STYRING"];
 
 const inputClass =
-  "rounded-md border border-slate-300 px-2 py-1 text-sm text-slate-900 focus:border-slate-500 focus:outline-none focus:ring-1 focus:ring-slate-500";
+  "rounded-md border border-slate-300 px-2 py-1 text-sm text-slate-900 focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/30";
+
+const leggTilKnapp =
+  "rounded-md border border-indigo-200 bg-indigo-50/50 px-3 py-1 text-xs font-medium text-indigo-700 hover:bg-indigo-100";
+
+const slettKnapp = "rounded px-2 py-1 text-xs font-medium text-rose-600 hover:bg-rose-50";
 
 async function putNode(id: string, body: Record<string, unknown>) {
   await fetch(`/api/processes/node/${id}`, {
@@ -53,11 +58,11 @@ export default function ProcessTree({
         const level2 = hierarchy.level2.filter((n) => n.level1Id === l1.id);
         const erApen = !!apen[l1.id];
         return (
-          <div key={l1.id} className="rounded-lg border border-slate-200 bg-white">
+          <div key={l1.id} className="rounded-lg border border-slate-200 bg-white shadow-sm">
             <div className="flex flex-wrap items-center gap-3 px-4 py-3">
               <button
                 onClick={() => setApen((a) => ({ ...a, [l1.id]: !a[l1.id] }))}
-                className="w-5 text-slate-400 hover:text-slate-700"
+                className="w-5 text-indigo-400 hover:text-indigo-700"
                 aria-label="Vis eller skjul underprosesser"
               >
                 {erApen ? "▾" : "▸"}
@@ -119,7 +124,7 @@ function Level2Row({
   const [navnVerdi, setNavnVerdi] = useState(navn);
 
   return (
-    <div className="rounded-md border border-slate-200 bg-slate-50 p-3">
+    <div className="rounded-md border border-slate-200 bg-indigo-50/30 p-3">
       <div className="flex items-center gap-2">
         <input
           className={`${inputClass} flex-1 bg-white`}
@@ -137,7 +142,7 @@ function Level2Row({
             if (!confirm(`Slette prosessgruppen «${navn}» og alle underprosesser?`)) return;
             if (await deleteNode(level2Id)) await onChanged();
           }}
-          className="rounded px-2 py-1 text-xs font-medium text-red-600 hover:bg-red-50"
+          className={slettKnapp}
         >
           Slett
         </button>
@@ -172,7 +177,7 @@ function Level2Row({
                 if (!confirm(`Slette prosessen «${l3.navn}»?`)) return;
                 if (await deleteNode(l3.id)) await onChanged();
               }}
-              className="ml-auto rounded px-2 py-1 text-xs font-medium text-red-600 hover:bg-red-50"
+              className={`ml-auto ${slettKnapp}`}
             >
               Slett
             </button>
@@ -246,7 +251,7 @@ function LeggTilLevel2({ level1Id, onChanged }: { level1Id: string; onChanged: (
           setNavn("");
           await onChanged();
         }}
-        className="rounded-md border border-slate-300 px-3 py-1 text-xs font-medium text-slate-700 hover:bg-slate-100"
+        className={leggTilKnapp}
       >
         + Legg til nivå 2
       </button>
@@ -279,7 +284,7 @@ function LeggTilLevel3({ level2Id, onChanged }: { level2Id: string; onChanged: (
           setNavn("");
           await onChanged();
         }}
-        className="rounded-md border border-slate-300 px-3 py-1 text-xs font-medium text-slate-700 hover:bg-slate-100"
+        className={leggTilKnapp}
       >
         + Legg til nivå 3
       </button>

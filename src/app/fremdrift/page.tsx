@@ -6,6 +6,7 @@ import { getProcessOptions, getProcessLabel } from "@/lib/processHelpers";
 import { fremdriftLabels, fremdriftOptions, ragLabels, ragOptions, statusLabels } from "@/lib/labels";
 import { RagBadge, Pill } from "@/components/Badges";
 import InitiativeModal from "@/components/InitiativeModal";
+import { selectClass } from "@/lib/ui";
 import type { Initiativ } from "@/lib/types";
 
 export default function FremdriftPage() {
@@ -33,9 +34,6 @@ export default function FremdriftPage() {
     return <p className="text-sm text-slate-500">Laster fremdrift...</p>;
   }
 
-  const inputClass =
-    "rounded-md border border-slate-300 px-3 py-1.5 text-sm text-slate-900 focus:border-slate-500 focus:outline-none focus:ring-1 focus:ring-slate-500";
-
   return (
     <div className="space-y-5">
       <div>
@@ -46,7 +44,7 @@ export default function FremdriftPage() {
       </div>
 
       <div className="flex flex-wrap gap-3">
-        <select className={inputClass} value={fremdriftFilter} onChange={(e) => setFremdriftFilter(e.target.value)}>
+        <select className={selectClass} value={fremdriftFilter} onChange={(e) => setFremdriftFilter(e.target.value)}>
           <option value="alle">Alle fremdriftsstatuser</option>
           {fremdriftOptions.map((f) => (
             <option key={f} value={f}>
@@ -54,7 +52,7 @@ export default function FremdriftPage() {
             </option>
           ))}
         </select>
-        <select className={inputClass} value={ragFilter} onChange={(e) => setRagFilter(e.target.value)}>
+        <select className={selectClass} value={ragFilter} onChange={(e) => setRagFilter(e.target.value)}>
           <option value="alle">Alle RAG-statuser</option>
           {ragOptions.map((r) => (
             <option key={r} value={r}>
@@ -69,7 +67,7 @@ export default function FremdriftPage() {
           <button
             key={i.id}
             onClick={() => setValgt(i)}
-            className="rounded-lg border border-slate-200 bg-white p-4 text-left hover:border-slate-400 hover:shadow-sm"
+            className="rounded-xl border border-slate-200 bg-white p-4 text-left shadow-sm hover:border-indigo-300 hover:shadow-md transition-shadow"
           >
             <div className="flex items-start justify-between gap-2">
               <h3 className="font-medium text-slate-900">{i.navn}</h3>

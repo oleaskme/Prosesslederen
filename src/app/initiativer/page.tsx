@@ -2,15 +2,11 @@
 
 import { useMemo, useState } from "react";
 import { useAppData } from "@/hooks/useAppData";
-import { getProcessOptions, getProcessLabel } from "@/lib/processHelpers";
-import {
-  kompleksitetLabels,
-  statusLabels,
-  statusOptions,
-  tidsperspektivLabels,
-} from "@/lib/labels";
+import { getProcessOptions } from "@/lib/processHelpers";
+import { kompleksitetLabels, statusLabels, statusOptions, tidsperspektivLabels } from "@/lib/labels";
 import { RagBadge } from "@/components/Badges";
 import InitiativeModal from "@/components/InitiativeModal";
+import { buttonGhost, buttonPrimary, selectClass } from "@/lib/ui";
 import type { Initiativ } from "@/lib/types";
 
 export default function InitiativoversiktPage() {
@@ -45,9 +41,6 @@ export default function InitiativoversiktPage() {
     return <p className="text-sm text-slate-500">Laster initiativer...</p>;
   }
 
-  const inputClass =
-    "rounded-md border border-slate-300 px-3 py-1.5 text-sm text-slate-900 focus:border-slate-500 focus:outline-none focus:ring-1 focus:ring-slate-500";
-
   return (
     <div className="space-y-5">
       <div className="flex flex-wrap items-center justify-between gap-3">
@@ -57,17 +50,14 @@ export default function InitiativoversiktPage() {
             Digitaliseringsinitiativer med status, effekt og ansvar.
           </p>
         </div>
-        <button
-          onClick={() => setAktiv({ mode: "ny" })}
-          className="rounded-md bg-slate-900 px-4 py-2 text-sm font-medium text-white hover:bg-slate-700"
-        >
+        <button onClick={() => setAktiv({ mode: "ny" })} className={buttonPrimary}>
           + Nytt initiativ
         </button>
       </div>
 
-      <div className="flex flex-wrap gap-3">
+      <div className="flex flex-wrap items-center gap-3">
         <select
-          className={inputClass}
+          className={selectClass}
           value={statusFilter}
           onChange={(e) => setStatusFilter(e.target.value)}
         >
@@ -79,7 +69,7 @@ export default function InitiativoversiktPage() {
           ))}
         </select>
         <select
-          className={inputClass}
+          className={selectClass}
           value={prosessFilter}
           onChange={(e) => setProsessFilter(e.target.value)}
         >
@@ -96,19 +86,19 @@ export default function InitiativoversiktPage() {
               setStatusFilter("alle");
               setProsessFilter("alle");
             }}
-            className="text-sm text-slate-500 underline hover:text-slate-700"
+            className={buttonGhost}
           >
             Nullstill filter
           </button>
         )}
       </div>
 
-      <div className="overflow-x-auto rounded-lg border border-slate-200 bg-white">
+      <div className="overflow-x-auto rounded-xl border border-slate-200 bg-white shadow-sm">
         <table className="min-w-full divide-y divide-slate-200 text-sm">
-          <thead className="bg-slate-50 text-left text-xs font-semibold uppercase tracking-wide text-slate-500">
+          <thead className="bg-indigo-50/60 text-left text-xs font-semibold uppercase tracking-wide text-indigo-900">
             <tr>
               <th className="px-4 py-2">Navn</th>
-              <th className="px-4 py-2">Berørt prosess</th>
+              <th className="px-4 py-2">Effektbeskrivelse</th>
               <th className="px-4 py-2">Status</th>
               <th className="px-4 py-2">Tidsperspektiv</th>
               <th className="px-4 py-2">Kompleksitet</th>
@@ -121,10 +111,12 @@ export default function InitiativoversiktPage() {
               <tr
                 key={i.id}
                 onClick={() => setAktiv({ mode: "rediger", initiativ: i })}
-                className="cursor-pointer hover:bg-slate-50"
+                className="cursor-pointer hover:bg-indigo-50/40"
               >
                 <td className="px-4 py-2 font-medium text-slate-900">{i.navn}</td>
-                <td className="px-4 py-2 text-slate-600">{getProcessLabel(hierarchy, i.berortProcessId)}</td>
+                <td className="max-w-xs truncate px-4 py-2 text-slate-600" title={i.effektForventet}>
+                  {i.effektForventet || "Ikke oppgitt"}
+                </td>
                 <td className="px-4 py-2 text-slate-600">{statusLabels[i.status]}</td>
                 <td className="px-4 py-2 text-slate-600">{tidsperspektivLabels[i.tidsperspektiv]}</td>
                 <td className="px-4 py-2 text-slate-600">{kompleksitetLabels[i.kompleksitet]}</td>

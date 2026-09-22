@@ -55,14 +55,14 @@ export default function PrioriteringsmatrisePage() {
                 return (
                   <div
                     key={`${tid}-${kompl}`}
-                    className="min-h-[140px] rounded-lg border border-slate-200 bg-white p-2"
+                    className="min-h-[140px] rounded-xl border border-slate-200 bg-white p-2 shadow-sm"
                   >
                     <div className="space-y-2">
                       {items.map((i) => (
                         <button
                           key={i.id}
                           onClick={() => setValgt(i)}
-                          className="block w-full rounded-md border border-slate-200 bg-slate-50 px-2 py-1.5 text-left text-xs hover:border-slate-400 hover:bg-white"
+                          className="block w-full rounded-md border border-slate-200 bg-indigo-50/40 px-2 py-1.5 text-left text-xs hover:border-indigo-300 hover:bg-white"
                         >
                           <div className="flex items-center justify-between gap-2">
                             <span className="font-medium text-slate-800">{i.navn}</span>

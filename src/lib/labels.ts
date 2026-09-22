@@ -90,8 +90,8 @@ export const ragColor: Record<RagStatus, string> = {
 };
 
 export const relevansColor: Record<ProcessRelevans, string> = {
-  kjerne: "bg-blue-100 text-blue-800 border-blue-300",
-  grensesnitt: "bg-sky-50 text-sky-700 border-sky-200",
-  indirekte: "bg-slate-100 text-slate-600 border-slate-200",
+  kjerne: "bg-indigo-100 text-indigo-800 border-indigo-300",
+  grensesnitt: "bg-teal-50 text-teal-700 border-teal-200",
+  indirekte: "bg-amber-50 text-amber-700 border-amber-200",
   "ikke relevant": "bg-slate-50 text-slate-400 border-slate-200",
 };
