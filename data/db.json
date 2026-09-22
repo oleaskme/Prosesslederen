@@ -1,0 +1,253 @@
+{
+  "processHierarchy": {
+    "level1": [
+      {
+        "id": "l1-01",
+        "kode": "1.0",
+        "navn": "Develop Vision and Strategy",
+        "relevans": "indirekte"
+      },
+      {
+        "id": "l1-02",
+        "kode": "2.0",
+        "navn": "Develop and Manage Products and Services",
+        "relevans": "ikke relevant"
+      },
+      {
+        "id": "l1-03",
+        "kode": "3.0",
+        "navn": "Market and Sell Products and Services",
+        "relevans": "ikke relevant"
+      },
+      {
+        "id": "l1-04",
+        "kode": "4.0",
+        "navn": "Deliver Physical Products",
+        "relevans": "ikke relevant"
+      },
+      {
+        "id": "l1-05",
+        "kode": "5.0",
+        "navn": "Deliver Services",
+        "relevans": "ikke relevant"
+      },
+      {
+        "id": "l1-06",
+        "kode": "6.0",
+        "navn": "Manage Customer Service",
+        "relevans": "ikke relevant"
+      },
+      {
+        "id": "l1-07",
+        "kode": "7.0",
+        "navn": "Manage Human Capital",
+        "relevans": "indirekte"
+      },
+      {
+        "id": "l1-08",
+        "kode": "8.0",
+        "navn": "Manage Information Technology",
+        "relevans": "grensesnitt"
+      },
+      {
+        "id": "l1-09",
+        "kode": "9.0",
+        "navn": "Manage Financial Resources",
+        "relevans": "kjerne"
+      },
+      {
+        "id": "l1-10",
+        "kode": "10.0",
+        "navn": "Acquire, Construct, and Manage Assets",
+        "relevans": "grensesnitt"
+      },
+      {
+        "id": "l1-11",
+        "kode": "11.0",
+        "navn": "Manage Enterprise Risk, Compliance, Remediation, and Resiliency",
+        "relevans": "grensesnitt"
+      },
+      {
+        "id": "l1-12",
+        "kode": "12.0",
+        "navn": "Manage External Relationships",
+        "relevans": "indirekte"
+      },
+      {
+        "id": "l1-13",
+        "kode": "13.0",
+        "navn": "Develop and Manage Business Capabilities",
+        "relevans": "grensesnitt"
+      }
+    ],
+    "level2": [
+      {
+        "id": "l2-01",
+        "level1Id": "l1-09",
+        "navn": "Perform general accounting"
+      },
+      {
+        "id": "l2-02",
+        "level1Id": "l1-09",
+        "navn": "Perform planning and management accounting"
+      },
+      {
+        "id": "l2-03",
+        "level1Id": "l1-09",
+        "navn": "Perform financial reporting"
+      },
+      {
+        "id": "l2-04",
+        "level1Id": "l1-09",
+        "navn": "Process accounts payable and expense reimbursements"
+      }
+    ],
+    "level3": [
+      {
+        "id": "l3-01",
+        "level2Id": "l2-01",
+        "navn": "Perform general accounting",
+        "delprosess": "GJENNOMFØRING",
+        "eierOverstyring": null
+      },
+      {
+        "id": "l3-02",
+        "level2Id": "l2-01",
+        "navn": "Perform fixed asset accounting",
+        "delprosess": "GJENNOMFØRING",
+        "eierOverstyring": null
+      },
+      {
+        "id": "l3-03",
+        "level2Id": "l2-02",
+        "navn": "Perform cost accounting and control",
+        "delprosess": "GJENNOMFØRING",
+        "eierOverstyring": null
+      },
+      {
+        "id": "l3-04",
+        "level2Id": "l2-02",
+        "navn": "Evaluate and manage financial performance",
+        "delprosess": "GJENNOMFØRING",
+        "eierOverstyring": null
+      },
+      {
+        "id": "l3-05",
+        "level2Id": "l2-03",
+        "navn": "Perform financial reporting",
+        "delprosess": "GJENNOMFØRING",
+        "eierOverstyring": null
+      },
+      {
+        "id": "l3-06",
+        "level2Id": "l2-04",
+        "navn": "Process accounts payable",
+        "delprosess": "GJENNOMFØRING",
+        "eierOverstyring": null
+      }
+    ],
+    "defaultOwners": {
+      "PLAN": "NN Plan",
+      "GJENNOMFØRING": "NN Gjennomføring",
+      "STYRING": "NN Styring"
+    }
+  },
+  "initiatives": [
+    {
+      "id": "init-01",
+      "navn": "Løpende registrering av grunnlag i periodeavslutning",
+      "beskrivelse": "Erstatte regnearkinnsending ved periodeslutt med løpende registrering hos avdelingene.",
+      "berortProcessId": "l3-01",
+      "effektForventet": "Redusert ledetid fra periodeslutt til ferdige tall.",
+      "effektMaaling": "Antall dager fra periodeslutt til ferdigstilte tall, målt per periode.",
+      "ressursbruksNivaa": "lav",
+      "ressursbruksKommentar": "Kan gjennomføres av seksjonen selv.",
+      "gevinsteier": "NN Gjennomføring",
+      "status": "prioritert",
+      "fremdriftsstatus": "ikke påbegynt",
+      "ragStatus": "green",
+      "tidsperspektiv": "na",
+      "kompleksitet": "lav",
+      "avhengigheter": "Ingen kjente.",
+      "leverandorbinding": false,
+      "leverandorbindingKommentar": "",
+      "risikoTillit": "lav",
+      "gevinstMaalbar": true,
+      "gevinstMaalbarKommentar": "",
+      "opprettet": "2026-01-01T08:00:00.000Z",
+      "oppdatert": "2026-01-01T08:00:00.000Z"
+    },
+    {
+      "id": "init-02",
+      "navn": "Oversikt over regneark i den styrende dataflyten",
+      "beskrivelse": "Kartlegge alle regneark som brukes i periodisk rapportering, med navngitt eier for hvert.",
+      "berortProcessId": "l3-05",
+      "effektForventet": "Synliggjøre skjult risiko og forberede automatisering.",
+      "effektMaaling": "Antall regneark med registrert eier, målt over tid.",
+      "ressursbruksNivaa": "lav",
+      "ressursbruksKommentar": "Kartleggingsarbeid.",
+      "gevinsteier": "NN Gjennomføring",
+      "status": "pågår",
+      "fremdriftsstatus": "pågående",
+      "ragStatus": "amber",
+      "tidsperspektiv": "na",
+      "kompleksitet": "lav",
+      "avhengigheter": "Ingen kjente.",
+      "leverandorbinding": false,
+      "leverandorbindingKommentar": "",
+      "risikoTillit": "lav",
+      "gevinstMaalbar": true,
+      "gevinstMaalbarKommentar": "Antall regneark med registrert eier, målt over tid.",
+      "opprettet": "2026-01-05T08:00:00.000Z",
+      "oppdatert": "2026-01-05T08:00:00.000Z"
+    },
+    {
+      "id": "init-03",
+      "navn": "Avklart datadefinisjon for kostnadskategori",
+      "beskrivelse": "Én felles definisjon av en sentral kostnadskategori, i stedet for at avdelingene bruker ulike tolkninger.",
+      "berortProcessId": "l3-03",
+      "effektForventet": "Sammenlignbar rapportering på tvers av avdelinger.",
+      "effektMaaling": "Andel avdelinger som rapporterer etter felles definisjon.",
+      "ressursbruksNivaa": "middels",
+      "ressursbruksKommentar": "Krever avklaring med dataeier og flere avdelinger.",
+      "gevinsteier": "NN Gjennomføring, i samråd med dataeier",
+      "status": "idé",
+      "fremdriftsstatus": "ikke påbegynt",
+      "ragStatus": "green",
+      "tidsperspektiv": "neste9mnd",
+      "kompleksitet": "lav",
+      "avhengigheter": "Navngitt dataeier må være på plass.",
+      "leverandorbinding": false,
+      "leverandorbindingKommentar": "",
+      "risikoTillit": "lav",
+      "gevinstMaalbar": true,
+      "gevinstMaalbarKommentar": "",
+      "opprettet": "2026-01-10T08:00:00.000Z",
+      "oppdatert": "2026-01-10T08:00:00.000Z"
+    },
+    {
+      "id": "init-04",
+      "navn": "Automatisert kvalitetskontroll ved periodeavslutning",
+      "beskrivelse": "Erstatte én manuell kontroll med en automatisert sjekk, med dokumentert erstatning.",
+      "berortProcessId": "l3-01",
+      "effektForventet": "Redusert tid til manuell kvalitetssikring.",
+      "effektMaaling": "Timer brukt på manuell kvalitetssikring per periode.",
+      "ressursbruksNivaa": "høy",
+      "ressursbruksKommentar": "Krever avklaring med internkontrollmiljøet og mulig systemstøtte.",
+      "gevinsteier": "NN Gjennomføring",
+      "status": "vurdert",
+      "fremdriftsstatus": "ikke påbegynt",
+      "ragStatus": "red",
+      "tidsperspektiv": "neste9mnd",
+      "kompleksitet": "høy",
+      "avhengigheter": "Avklaring med internkontrollmiljøet om erstatningskontroll.",
+      "leverandorbinding": false,
+      "leverandorbindingKommentar": "",
+      "risikoTillit": "middels",
+      "gevinstMaalbar": true,
+      "gevinstMaalbarKommentar": "",
+      "opprettet": "2026-01-12T08:00:00.000Z",
+      "oppdatert": "2026-01-12T08:00:00.000Z"
+    }
+  ]
+}

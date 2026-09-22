@@ -1,0 +1,44 @@
+import { NextRequest, NextResponse } from "next/server";
+import { generateId, readDb, writeDb } from "@/lib/db";
+import type { Initiativ } from "@/lib/types";
+
+export async function GET() {
+  const db = readDb();
+  return NextResponse.json(db.initiatives);
+}
+
+export async function POST(request: NextRequest) {
+  const body = await request.json();
+  const db = readDb();
+
+  const now = new Date().toISOString();
+  const initiativ: Initiativ = {
+    id: generateId("init"),
+    navn: body.navn ?? "",
+    beskrivelse: body.beskrivelse ?? "",
+    berortProcessId: body.berortProcessId ?? "",
+    effektForventet: body.effektForventet ?? "",
+    effektMaaling: body.effektMaaling ?? "",
+    ressursbruksNivaa: body.ressursbruksNivaa ?? "lav",
+    ressursbruksKommentar: body.ressursbruksKommentar ?? "",
+    gevinsteier: body.gevinsteier ?? "",
+    status: body.status ?? "idé",
+    fremdriftsstatus: body.fremdriftsstatus ?? "ikke påbegynt",
+    ragStatus: body.ragStatus ?? "green",
+    tidsperspektiv: body.tidsperspektiv ?? "na",
+    kompleksitet: body.kompleksitet ?? "lav",
+    avhengigheter: body.avhengigheter ?? "",
+    leverandorbinding: Boolean(body.leverandorbinding),
+    leverandorbindingKommentar: body.leverandorbindingKommentar ?? "",
+    risikoTillit: body.risikoTillit ?? "lav",
+    gevinstMaalbar: Boolean(body.gevinstMaalbar),
+    gevinstMaalbarKommentar: body.gevinstMaalbarKommentar ?? "",
+    opprettet: now,
+    oppdatert: now,
+  };
+
+  db.initiatives.push(initiativ);
+  writeDb(db);
+
+  return NextResponse.json(initiativ, { status: 201 });
+}
