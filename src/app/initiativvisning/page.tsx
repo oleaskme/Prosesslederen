@@ -85,27 +85,6 @@ export default function InitiativerPage() {
             + Nytt initiativ
           </button>
 
-          <div className="flex-1 space-y-1.5 rounded-xl border border-slate-200 bg-white p-2 shadow-sm">
-            {filtrert.map((i) => {
-              const aktiv = i.id === effektivId;
-              return (
-                <button
-                  key={i.id}
-                  onClick={() => velg(i.id)}
-                  className={`flex w-full items-center gap-2 rounded-lg px-3 py-2 text-left text-sm transition-colors ${
-                    aktiv ? "bg-indigo-600 text-white shadow-sm" : "text-slate-700 hover:bg-indigo-50"
-                  }`}
-                >
-                  <span className={`h-2 w-2 shrink-0 rounded-full ${ragColor[i.ragStatus]}`} />
-                  <span className="truncate">{i.navn}</span>
-                </button>
-              );
-            })}
-            {filtrert.length === 0 && (
-              <p className="px-3 py-4 text-center text-xs text-slate-400">Ingen initiativer matcher filteret.</p>
-            )}
-          </div>
-
           <div className="space-y-2 rounded-xl border border-slate-200 bg-white p-3 shadow-sm">
             <label className="block">
               <span className="mb-1 block text-xs font-medium text-slate-500">Status</span>
@@ -137,6 +116,27 @@ export default function InitiativerPage() {
                 ))}
               </select>
             </label>
+          </div>
+
+          <div className="flex-1 space-y-1.5 rounded-xl border border-slate-200 bg-white p-2 shadow-sm">
+            {filtrert.map((i) => {
+              const aktiv = i.id === effektivId;
+              return (
+                <button
+                  key={i.id}
+                  onClick={() => velg(i.id)}
+                  className={`flex w-full items-center gap-2 rounded-lg px-3 py-2 text-left text-sm transition-colors ${
+                    aktiv ? "bg-indigo-600 text-white shadow-sm" : "text-slate-700 hover:bg-indigo-50"
+                  }`}
+                >
+                  <span className={`h-2 w-2 shrink-0 rounded-full ${ragColor[i.ragStatus]}`} />
+                  <span className="truncate">{i.navn}</span>
+                </button>
+              );
+            })}
+            {filtrert.length === 0 && (
+              <p className="px-3 py-4 text-center text-xs text-slate-400">Ingen initiativer matcher filteret.</p>
+            )}
           </div>
         </div>
 

@@ -8,6 +8,8 @@ import { RagBadge } from "@/components/Badges";
 import InitiativeModal from "@/components/InitiativeModal";
 import type { Initiativ, Kompleksitet, ProsessEier, Tidsperspektiv } from "@/lib/types";
 
+const kompleksitetRadRekkefolge: Kompleksitet[] = [...kompleksitetOptions].reverse();
+
 export default function PrioriteringsmatrisePage() {
   const { initiatives, hierarchy, loading, refetch } = useAppData();
   const [eiere, setEiere] = useState<ProsessEier[]>([]);
@@ -61,7 +63,7 @@ export default function PrioriteringsmatrisePage() {
             </div>
           ))}
 
-          {kompleksitetOptions.map((kompl) => (
+          {kompleksitetRadRekkefolge.map((kompl) => (
             <div key={kompl} className="contents">
               <div className="flex items-center px-2 text-sm font-semibold text-slate-700">
                 {kompleksitetLabels[kompl]}
