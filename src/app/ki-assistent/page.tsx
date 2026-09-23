@@ -121,8 +121,9 @@ export default function KiAssistentPage() {
         </p>
       </div>
 
-      <div className="grid gap-6 lg:grid-cols-[1.1fr_auto_1.4fr]">
-        <div className="space-y-4">
+      <div className="grid gap-6 lg:grid-cols-[1.1fr_1.4fr]">
+        <div className="space-y-4 rounded-2xl border border-slate-300 bg-slate-50/60 p-5 shadow-sm">
+          <h2 className="text-xs font-semibold uppercase tracking-wider text-slate-400">Porteføljeanalyse</h2>
           <div className={cardAccent("rose")}>
             <h2 className="text-sm font-semibold uppercase tracking-wide text-slate-500">Risiko</h2>
             <p className="mt-2 text-sm text-slate-700">{risikoTiltak(analyse)}</p>
@@ -184,10 +185,9 @@ export default function KiAssistentPage() {
           </div>
         </div>
 
-        <div className="hidden lg:block w-px bg-slate-300" />
-
-        <div className="flex gap-4">
+        <div className="flex gap-4 rounded-2xl border border-slate-300 bg-slate-50/60 p-5 shadow-sm">
           <div className="w-56 shrink-0 space-y-2">
+            <h2 className="text-xs font-semibold uppercase tracking-wider text-slate-400">Chat-historikk</h2>
             <button onClick={startNyTraad} className={`${buttonPrimary} w-full`}>
               + Nytt spørsmål
             </button>
