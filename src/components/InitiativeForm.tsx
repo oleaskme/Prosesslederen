@@ -31,7 +31,6 @@ const tomtSkjema: InitiativFormValues = {
   effektMaaling: "",
   ressursbruksNivaa: "lav",
   ressursbruksKommentar: "",
-  gevinsteier: "",
   prosesseierId: "",
   status: "idé",
   fremdriftsstatus: "ikke påbegynt",
@@ -81,7 +80,6 @@ export default function InitiativeForm({
           effektMaaling: initial.effektMaaling,
           ressursbruksNivaa: initial.ressursbruksNivaa,
           ressursbruksKommentar: initial.ressursbruksKommentar,
-          gevinsteier: initial.gevinsteier,
           prosesseierId: initial.prosesseierId,
           status: initial.status,
           fremdriftsstatus: initial.fremdriftsstatus,
@@ -221,29 +219,20 @@ export default function InitiativeForm({
         </Felt>
       </div>
 
-      <div className="grid gap-4 sm:grid-cols-2">
-        <Felt label="Gevinsteier (navngitt person i linjen)">
-          <input
-            className={inputClass}
-            value={values.gevinsteier}
-            onChange={(e) => set("gevinsteier", e.target.value)}
-          />
-        </Felt>
-        <Felt label="Prosesseier">
-          <select
-            className={inputClass}
-            value={values.prosesseierId}
-            onChange={(e) => set("prosesseierId", e.target.value)}
-          >
-            <option value="">Ikke satt</option>
-            {eiere.map((e) => (
-              <option key={e.id} value={e.id}>
-                {e.navn} · {e.avdeling}
-              </option>
-            ))}
-          </select>
-        </Felt>
-      </div>
+      <Felt label="Gevinsteier (navngitt person i linjen)">
+        <select
+          className={inputClass}
+          value={values.prosesseierId}
+          onChange={(e) => set("prosesseierId", e.target.value)}
+        >
+          <option value="">Ikke satt</option>
+          {eiere.map((e) => (
+            <option key={e.id} value={e.id}>
+              {e.navn} · {e.avdeling}
+            </option>
+          ))}
+        </select>
+      </Felt>
 
       <div className="grid gap-4 sm:grid-cols-3">
         <Felt label="Status">

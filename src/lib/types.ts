@@ -66,7 +66,6 @@ export interface Initiativ {
   effektMaaling: string;
   ressursbruksNivaa: Nivaa;
   ressursbruksKommentar: string;
-  gevinsteier: string;
   prosesseierId: string;
   status: InitiativStatus;
   fremdriftsstatus: Fremdriftsstatus;

@@ -1,18 +1,32 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useAppData } from "@/hooks/useAppData";
 import { getProcessOptions } from "@/lib/processHelpers";
 import { kompleksitetLabels, kompleksitetOptions, tidsperspektivLabels, tidsperspektivOptions } from "@/lib/labels";
 import { RagBadge } from "@/components/Badges";
 import InitiativeModal from "@/components/InitiativeModal";
-import type { Initiativ, Kompleksitet, Tidsperspektiv } from "@/lib/types";
+import type { Initiativ, Kompleksitet, ProsessEier, Tidsperspektiv } from "@/lib/types";
 
 export default function PrioriteringsmatrisePage() {
   const { initiatives, hierarchy, loading, refetch } = useAppData();
+  const [eiere, setEiere] = useState<ProsessEier[]>([]);
   const [valgt, setValgt] = useState<Initiativ | null>(null);
 
+  useEffect(() => {
+    async function hentEiere() {
+      const res = await fetch("/api/eiere", { cache: "no-store" });
+      const data = await res.json();
+      setEiere(data);
+    }
+    hentEiere();
+  }, []);
+
   const processOptions = useMemo(() => (hierarchy ? getProcessOptions(hierarchy) : []), [hierarchy]);
+
+  function gevinsteierNavn(prosesseierId: string) {
+    return eiere.find((e) => e.id === prosesseierId)?.navn ?? "Ikke satt";
+  }
 
   function cellItems(tid: Tidsperspektiv, kompl: Kompleksitet) {
     return (initiatives ?? []).filter(
@@ -74,7 +88,7 @@ export default function PrioriteringsmatrisePage() {
                             <span className="font-medium text-slate-800">{i.navn}</span>
                             <RagBadge status={i.ragStatus} />
                           </div>
-                          <div className="mt-0.5 text-slate-500">{i.gevinsteier}</div>
+                          <div className="mt-0.5 text-slate-500">{gevinsteierNavn(i.prosesseierId)}</div>
                         </button>
                       ))}
                       {items.length === 0 && (

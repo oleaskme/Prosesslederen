@@ -1,23 +1,37 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useAppData } from "@/hooks/useAppData";
 import { getProcessOptions } from "@/lib/processHelpers";
 import { kompleksitetLabels, statusLabels, statusOptions, tidsperspektivLabels } from "@/lib/labels";
 import { RagBadge } from "@/components/Badges";
 import InitiativeModal from "@/components/InitiativeModal";
 import { buttonGhost, buttonPrimary, selectClass } from "@/lib/ui";
-import type { Initiativ } from "@/lib/types";
+import type { Initiativ, ProsessEier } from "@/lib/types";
 
 export default function InitiativoversiktPage() {
   const { initiatives, hierarchy, loading, refetch } = useAppData();
+  const [eiere, setEiere] = useState<ProsessEier[]>([]);
   const [statusFilter, setStatusFilter] = useState<string>("alle");
   const [prosessFilter, setProsessFilter] = useState<string>("alle");
   const [aktiv, setAktiv] = useState<{ mode: "ny" | "rediger"; initiativ?: Initiativ } | null>(
     null
   );
 
+  useEffect(() => {
+    async function hentEiere() {
+      const res = await fetch("/api/eiere", { cache: "no-store" });
+      const data = await res.json();
+      setEiere(data);
+    }
+    hentEiere();
+  }, []);
+
   const processOptions = useMemo(() => (hierarchy ? getProcessOptions(hierarchy) : []), [hierarchy]);
+
+  function gevinsteierNavn(prosesseierId: string) {
+    return eiere.find((e) => e.id === prosesseierId)?.navn ?? "Ikke satt";
+  }
 
   const filtrert = useMemo(() => {
     if (!initiatives) return [];
@@ -123,7 +137,7 @@ export default function InitiativoversiktPage() {
                 <td className="px-4 py-2">
                   <RagBadge status={i.ragStatus} />
                 </td>
-                <td className="px-4 py-2 text-slate-600">{i.gevinsteier}</td>
+                <td className="px-4 py-2 text-slate-600">{gevinsteierNavn(i.prosesseierId)}</td>
               </tr>
             ))}
             {filtrert.length === 0 && (

@@ -21,7 +21,6 @@ export async function POST(request: NextRequest) {
     effektMaaling: body.effektMaaling ?? "",
     ressursbruksNivaa: body.ressursbruksNivaa ?? "lav",
     ressursbruksKommentar: body.ressursbruksKommentar ?? "",
-    gevinsteier: body.gevinsteier ?? "",
     prosesseierId: body.prosesseierId ?? "",
     status: body.status ?? "idé",
     fremdriftsstatus: body.fremdriftsstatus ?? "ikke påbegynt",
