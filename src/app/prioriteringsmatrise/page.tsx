@@ -14,6 +14,8 @@ export default function PrioriteringsmatrisePage() {
   const { initiatives, hierarchy, loading, refetch } = useAppData();
   const [eiere, setEiere] = useState<ProsessEier[]>([]);
   const [valgt, setValgt] = useState<Initiativ | null>(null);
+  const [dragId, setDragId] = useState<string | null>(null);
+  const [dragOverCelle, setDragOverCelle] = useState<string | null>(null);
 
   useEffect(() => {
     async function hentEiere() {
@@ -41,6 +43,17 @@ export default function PrioriteringsmatrisePage() {
     setValgt(null);
   }
 
+  async function flyttTil(id: string, tid: Tidsperspektiv, kompl: Kompleksitet) {
+    const initiativ = initiatives?.find((i) => i.id === id);
+    if (!initiativ || (initiativ.tidsperspektiv === tid && initiativ.kompleksitet === kompl)) return;
+    await fetch(`/api/initiatives/${id}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ tidsperspektiv: tid, kompleksitet: kompl }),
+    });
+    await refetch();
+  }
+
   if (loading || !hierarchy) {
     return <p className="text-sm text-slate-500">Laster matrise...</p>;
   }
@@ -50,7 +63,8 @@ export default function PrioriteringsmatrisePage() {
       <div>
         <h1 className="text-xl font-semibold text-slate-900">Prioriteringsmatrise</h1>
         <p className="text-sm text-slate-500">
-          Initiativer plassert etter tidsperspektiv og kompleksitet. Klikk på et initiativ for å åpne detaljene.
+          Initiativer plassert etter tidsperspektiv og kompleksitet. Dra et initiativ til en annen celle for å endre
+          plassering, eller klikk for å åpne detaljene.
         </p>
       </div>
 
@@ -70,21 +84,46 @@ export default function PrioriteringsmatrisePage() {
               </div>
               {tidsperspektivOptions.map((tid) => {
                 const items = cellItems(tid, kompl);
+                const celleNokkel = `${tid}-${kompl}`;
                 return (
                   <div
-                    key={`${tid}-${kompl}`}
-                    className="min-h-[140px] rounded-xl border border-slate-200 bg-white p-2 shadow-sm"
+                    key={celleNokkel}
+                    onDragOver={(e) => {
+                      e.preventDefault();
+                      setDragOverCelle(celleNokkel);
+                    }}
+                    onDragLeave={() => setDragOverCelle((k) => (k === celleNokkel ? null : k))}
+                    onDrop={(e) => {
+                      e.preventDefault();
+                      const id = e.dataTransfer.getData("text/plain");
+                      setDragOverCelle(null);
+                      setDragId(null);
+                      if (id) flyttTil(id, tid, kompl);
+                    }}
+                    className={`min-h-[140px] rounded-xl border border-slate-200 bg-white p-2 shadow-sm transition-colors ${
+                      dragOverCelle === celleNokkel ? "bg-indigo-50 ring-2 ring-inset ring-indigo-300" : ""
+                    }`}
                   >
                     <div className="space-y-2">
                       {items.map((i) => (
                         <button
                           key={i.id}
+                          draggable
+                          onDragStart={(e) => {
+                            e.dataTransfer.setData("text/plain", i.id);
+                            e.dataTransfer.effectAllowed = "move";
+                            setDragId(i.id);
+                          }}
+                          onDragEnd={() => {
+                            setDragId(null);
+                            setDragOverCelle(null);
+                          }}
                           onClick={() => setValgt(i)}
-                          className={`block w-full rounded-md bg-indigo-50/40 px-2 py-1.5 text-left text-xs hover:bg-white ${
+                          className={`block w-full cursor-grab rounded-md bg-indigo-50/40 px-2 py-1.5 text-left text-xs hover:bg-white active:cursor-grabbing ${
                             i.status === "pågående"
                               ? "border-4 border-emerald-500 hover:border-emerald-600"
                               : "border border-slate-200 hover:border-indigo-300"
-                          }`}
+                          } ${dragId === i.id ? "opacity-40" : ""}`}
                         >
                           <div className="flex items-center justify-between gap-2">
                             <span className="font-medium text-slate-800">{i.navn}</span>

@@ -27,6 +27,8 @@ const sannsynlighetKolonner: RisikoSkala[] = [1, 2, 3, 4, 5];
 export default function RisikomatrisePage() {
   const { initiatives, hierarchy, loading, refetch } = useAppData();
   const [valgt, setValgt] = useState<Initiativ | null>(null);
+  const [dragId, setDragId] = useState<string | null>(null);
+  const [dragOverCelle, setDragOverCelle] = useState<string | null>(null);
 
   const processOptions = useMemo(() => (hierarchy ? getProcessOptions(hierarchy) : []), [hierarchy]);
 
@@ -44,6 +46,18 @@ export default function RisikomatrisePage() {
     setValgt(null);
   }
 
+  async function flyttTil(id: string, sannsynlighet: RisikoSkala, konsekvens: RisikoSkala) {
+    const initiativ = initiatives?.find((i) => i.id === id);
+    if (!initiativ || (initiativ.risikoSannsynlighet === sannsynlighet && initiativ.risikoKonsekvens === konsekvens))
+      return;
+    await fetch(`/api/initiatives/${id}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ risikoSannsynlighet: sannsynlighet, risikoKonsekvens: konsekvens }),
+    });
+    await refetch();
+  }
+
   if (loading || !hierarchy) {
     return <p className="text-sm text-slate-500">Laster risikomatrise...</p>;
   }
@@ -54,7 +68,8 @@ export default function RisikomatrisePage() {
         <h1 className="text-xl font-semibold text-slate-900">Risikomatrise</h1>
         <p className="text-sm text-slate-500">
           Risikovurdering per initiativ, på en skala fra 1 (svært lav) til 5 (svært høy) for sannsynlighet og
-          konsekvens. Klikk på et initiativ for å åpne detaljene.
+          konsekvens. Dra et initiativ til en annen celle for å endre vurderingen, eller klikk for å åpne
+          detaljene.
         </p>
       </div>
 
@@ -87,18 +102,45 @@ export default function RisikomatrisePage() {
                   {sannsynlighetKolonner.map((sannsynlighet) => {
                     const score = sannsynlighet + konsekvens;
                     const items = cellItems(sannsynlighet, konsekvens);
+                    const celleNokkel = `${sannsynlighet}-${konsekvens}`;
                     return (
                       <div
-                        key={`${sannsynlighet}-${konsekvens}`}
-                        className={`min-h-[84px] rounded-lg border border-slate-200 p-1.5 ${cellFarge(score)}`}
+                        key={celleNokkel}
+                        onDragOver={(e) => {
+                          e.preventDefault();
+                          setDragOverCelle(celleNokkel);
+                        }}
+                        onDragLeave={() => setDragOverCelle((k) => (k === celleNokkel ? null : k))}
+                        onDrop={(e) => {
+                          e.preventDefault();
+                          const id = e.dataTransfer.getData("text/plain");
+                          setDragOverCelle(null);
+                          setDragId(null);
+                          if (id) flyttTil(id, sannsynlighet, konsekvens);
+                        }}
+                        className={`min-h-[84px] rounded-lg border border-slate-200 p-1.5 transition-colors ${cellFarge(score)} ${
+                          dragOverCelle === celleNokkel ? "ring-2 ring-inset ring-indigo-500" : ""
+                        }`}
                       >
                         <div className="flex flex-wrap gap-1">
                           {items.map((i) => (
                             <button
                               key={i.id}
+                              draggable
+                              onDragStart={(e) => {
+                                e.dataTransfer.setData("text/plain", i.id);
+                                e.dataTransfer.effectAllowed = "move";
+                                setDragId(i.id);
+                              }}
+                              onDragEnd={() => {
+                                setDragId(null);
+                                setDragOverCelle(null);
+                              }}
                               onClick={() => setValgt(i)}
                               title={i.navn}
-                              className={`flex h-7 w-7 items-center justify-center rounded-full text-xs font-semibold text-white shadow-sm hover:opacity-80 ${dotFarge(score)}`}
+                              className={`flex h-7 w-7 cursor-grab items-center justify-center rounded-full text-xs font-semibold text-white shadow-sm hover:opacity-80 active:cursor-grabbing ${dotFarge(score)} ${
+                                dragId === i.id ? "opacity-40" : ""
+                              }`}
                             >
                               {i.bokstav}
                             </button>
@@ -124,8 +166,20 @@ export default function RisikomatrisePage() {
               return (
                 <li key={i.id}>
                   <button
+                    draggable
+                    onDragStart={(e) => {
+                      e.dataTransfer.setData("text/plain", i.id);
+                      e.dataTransfer.effectAllowed = "move";
+                      setDragId(i.id);
+                    }}
+                    onDragEnd={() => {
+                      setDragId(null);
+                      setDragOverCelle(null);
+                    }}
                     onClick={() => setValgt(i)}
-                    className="flex w-full items-center gap-2.5 rounded-lg border border-slate-200 bg-white px-3 py-2 text-left text-sm shadow-sm hover:border-indigo-300"
+                    className={`flex w-full cursor-grab items-center gap-2.5 rounded-lg border border-slate-200 bg-white px-3 py-2 text-left text-sm shadow-sm hover:border-indigo-300 active:cursor-grabbing ${
+                      dragId === i.id ? "opacity-40" : ""
+                    }`}
                   >
                     <span
                       className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-xs font-semibold text-white ${dotFarge(score)}`}
