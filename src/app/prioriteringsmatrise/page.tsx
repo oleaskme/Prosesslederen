@@ -32,7 +32,7 @@ export default function PrioriteringsmatrisePage() {
 
   function cellItems(tid: Tidsperspektiv, kompl: Kompleksitet) {
     return (initiatives ?? []).filter(
-      (i) => i.tidsperspektiv === tid && i.kompleksitet === kompl && i.fremdriftsstatus !== "avsluttet"
+      (i) => i.tidsperspektiv === tid && i.kompleksitet === kompl && i.status !== "avsluttet"
     );
   }
 
@@ -81,7 +81,7 @@ export default function PrioriteringsmatrisePage() {
                           key={i.id}
                           onClick={() => setValgt(i)}
                           className={`block w-full rounded-md bg-indigo-50/40 px-2 py-1.5 text-left text-xs hover:bg-white ${
-                            i.fremdriftsstatus === "pågående"
+                            i.status === "pågående"
                               ? "border-4 border-emerald-500 hover:border-emerald-600"
                               : "border border-slate-200 hover:border-indigo-300"
                           }`}

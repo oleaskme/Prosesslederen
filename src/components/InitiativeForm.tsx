@@ -4,14 +4,14 @@ import { useEffect, useState } from "react";
 import {
   faseLabels,
   faseOptions,
-  fremdriftLabels,
-  fremdriftOptions,
   kompleksitetLabels,
   kompleksitetOptions,
   ragLabels,
   ragOptions,
   risikoSkalaLabels,
   risikoSkalaOptions,
+  statusLabels,
+  statusOptions,
   tidsperspektivLabels,
   tidsperspektivOptions,
 } from "@/lib/labels";
@@ -30,7 +30,7 @@ const tomtSkjema: InitiativFormValues = {
   prosesseierId: "",
   subjectMatterExpertId: "",
   fase: "idéfase",
-  fremdriftsstatus: "ikke påbegynt",
+  status: "ikke påbegynt",
   ragStatus: "green",
   tidsperspektiv: "na",
   kompleksitet: "lav",
@@ -93,7 +93,7 @@ export default function InitiativeForm({
           prosesseierId: initial.prosesseierId,
           subjectMatterExpertId: initial.subjectMatterExpertId,
           fase: initial.fase,
-          fremdriftsstatus: initial.fremdriftsstatus,
+          status: initial.status,
           ragStatus: initial.ragStatus,
           tidsperspektiv: initial.tidsperspektiv,
           kompleksitet: initial.kompleksitet,
@@ -242,15 +242,15 @@ export default function InitiativeForm({
 
       <Seksjon tittel="Status og fremdrift" farge="amber">
         <div className="grid gap-4 sm:grid-cols-3">
-          <Felt label="Fremdriftsstatus">
+          <Felt label="Status">
             <select
               className={inputClass}
-              value={values.fremdriftsstatus}
-              onChange={(e) => set("fremdriftsstatus", e.target.value as InitiativFormValues["fremdriftsstatus"])}
+              value={values.status}
+              onChange={(e) => set("status", e.target.value as InitiativFormValues["status"])}
             >
-              {fremdriftOptions.map((f) => (
-                <option key={f} value={f}>
-                  {fremdriftLabels[f]}
+              {statusOptions.map((s) => (
+                <option key={s} value={s}>
+                  {statusLabels[s]}
                 </option>
               ))}
             </select>

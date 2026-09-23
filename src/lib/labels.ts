@@ -1,10 +1,10 @@
 import type {
-  Fremdriftsstatus,
   InitiativFase,
   Kompleksitet,
   ProcessRelevans,
   RagStatus,
   RisikoSkala,
+  Status,
   Tidsperspektiv,
 } from "./types";
 
@@ -26,13 +26,13 @@ export const faseOptions: InitiativFase[] = [
   "avslutningsfase",
 ];
 
-export const fremdriftLabels: Record<Fremdriftsstatus, string> = {
+export const statusLabels: Record<Status, string> = {
   "ikke påbegynt": "Ikke påbegynt",
   "pågående": "Pågående",
   avsluttet: "Avsluttet",
 };
 
-export const fremdriftOptions: Fremdriftsstatus[] = [
+export const statusOptions: Status[] = [
   "ikke påbegynt",
   "pågående",
   "avsluttet",

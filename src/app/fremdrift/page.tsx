@@ -3,19 +3,19 @@
 import { useMemo, useState } from "react";
 import { useAppData } from "@/hooks/useAppData";
 import { getProcessOptions, getProcessLabel } from "@/lib/processHelpers";
-import { faseLabels, fremdriftLabels, fremdriftOptions, ragLabels, ragOptions } from "@/lib/labels";
+import { faseLabels, ragLabels, ragOptions, statusLabels, statusOptions } from "@/lib/labels";
 import { RagBadge, Pill } from "@/components/Badges";
 import InitiativeModal from "@/components/InitiativeModal";
 import { selectClass } from "@/lib/ui";
-import type { Fremdriftsstatus, Initiativ } from "@/lib/types";
+import type { Initiativ, Status } from "@/lib/types";
 
-const kolonneAksent: Record<Fremdriftsstatus, string> = {
+const kolonneAksent: Record<Status, string> = {
   "ikke påbegynt": "border-t-slate-400",
   "pågående": "border-t-indigo-500",
   avsluttet: "border-t-emerald-500",
 };
 
-const kolonneBadge: Record<Fremdriftsstatus, string> = {
+const kolonneBadge: Record<Status, string> = {
   "ikke påbegynt": "bg-slate-100 text-slate-600",
   "pågående": "bg-indigo-100 text-indigo-700",
   avsluttet: "bg-emerald-100 text-emerald-700",
@@ -33,8 +33,8 @@ export default function FremdriftPage() {
     return initiatives.filter((i) => ragFilter === "alle" || i.ragStatus === ragFilter);
   }, [initiatives, ragFilter]);
 
-  function kolonneItems(fremdriftsstatus: Fremdriftsstatus) {
-    return filtrert.filter((i) => i.fremdriftsstatus === fremdriftsstatus);
+  function kolonneItems(status: Status) {
+    return filtrert.filter((i) => i.status === status);
   }
 
   async function etterEndring() {
@@ -51,7 +51,7 @@ export default function FremdriftPage() {
       <div>
         <h1 className="text-xl font-semibold text-slate-900">Fremdrift</h1>
         <p className="text-sm text-slate-500">
-          Alle initiativer fordelt etter fremdriftsstatus. Klikk på et initiativ for å åpne detaljene.
+          Alle initiativer fordelt etter status. Klikk på et initiativ for å åpne detaljene.
         </p>
       </div>
 
@@ -67,7 +67,7 @@ export default function FremdriftPage() {
       </div>
 
       <div className="grid gap-4 lg:grid-cols-3">
-        {fremdriftOptions.map((f) => {
+        {statusOptions.map((f) => {
           const items = kolonneItems(f);
           return (
             <div
@@ -75,7 +75,7 @@ export default function FremdriftPage() {
               className={`rounded-xl border border-slate-200 border-t-4 bg-slate-50/60 p-3 ${kolonneAksent[f]}`}
             >
               <div className="mb-3 flex items-center justify-between px-1">
-                <h2 className="text-sm font-semibold text-slate-700">{fremdriftLabels[f]}</h2>
+                <h2 className="text-sm font-semibold text-slate-700">{statusLabels[f]}</h2>
                 <span className={`rounded-full px-2 py-0.5 text-xs font-semibold ${kolonneBadge[f]}`}>
                   {items.length}
                 </span>

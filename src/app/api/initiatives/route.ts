@@ -22,7 +22,7 @@ export async function POST(request: NextRequest) {
     prosesseierId: body.prosesseierId ?? "",
     subjectMatterExpertId: body.subjectMatterExpertId ?? "",
     fase: body.fase ?? "idéfase",
-    fremdriftsstatus: body.fremdriftsstatus ?? "ikke påbegynt",
+    status: body.status ?? "ikke påbegynt",
     ragStatus: body.ragStatus ?? "green",
     tidsperspektiv: body.tidsperspektiv ?? "na",
     kompleksitet: body.kompleksitet ?? "lav",

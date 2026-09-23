@@ -155,7 +155,6 @@
       "berortProcessId": "l3-01",
       "effektForventet": "Redusert ledetid fra periodeslutt til ferdige tall.",
       "effektMaaling": "Antall dager fra periodeslutt til ferdigstilte tall, målt per periode.",
-      "fremdriftsstatus": "ikke påbegynt",
       "ragStatus": "green",
       "tidsperspektiv": "na",
       "kompleksitet": "lav",
@@ -168,7 +167,8 @@
       "avhengighetProsess": "",
       "avhengighetKompetanse": "",
       "subjectMatterExpertId": "",
-      "fase": "forprosjektfase"
+      "fase": "forprosjektfase",
+      "status": "ikke påbegynt"
     },
     {
       "id": "init-02",
@@ -177,7 +177,6 @@
       "berortProcessId": "l3-05",
       "effektForventet": "Synliggjøre skjult risiko og forberede automatisering.",
       "effektMaaling": "Antall regneark med registrert eier, målt over tid.",
-      "fremdriftsstatus": "pågående",
       "ragStatus": "amber",
       "tidsperspektiv": "na",
       "kompleksitet": "lav",
@@ -190,7 +189,8 @@
       "avhengighetProsess": "",
       "avhengighetKompetanse": "",
       "subjectMatterExpertId": "",
-      "fase": "gjennomføringsfase"
+      "fase": "gjennomføringsfase",
+      "status": "pågående"
     },
     {
       "id": "init-03",
@@ -199,7 +199,6 @@
       "berortProcessId": "l3-03",
       "effektForventet": "Sammenlignbar rapportering på tvers av avdelinger.",
       "effektMaaling": "Andel avdelinger som rapporterer etter felles definisjon.",
-      "fremdriftsstatus": "ikke påbegynt",
       "ragStatus": "green",
       "tidsperspektiv": "neste9mnd",
       "kompleksitet": "lav",
@@ -212,7 +211,8 @@
       "avhengighetProsess": "Krever at det er avklart hvem som er dataeier for kostnadskategorien.",
       "avhengighetKompetanse": "",
       "subjectMatterExpertId": "",
-      "fase": "idéfase"
+      "fase": "idéfase",
+      "status": "ikke påbegynt"
     },
     {
       "id": "init-04",
@@ -221,7 +221,6 @@
       "berortProcessId": "l3-01",
       "effektForventet": "Redusert tid til manuell kvalitetssikring.",
       "effektMaaling": "Timer brukt på manuell kvalitetssikring per periode.",
-      "fremdriftsstatus": "ikke påbegynt",
       "ragStatus": "red",
       "tidsperspektiv": "neste9mnd",
       "kompleksitet": "høy",
@@ -234,7 +233,8 @@
       "avhengighetProsess": "Avklaring med internkontrollmiljøet om hvilken kontroll som skal erstattes.",
       "avhengighetKompetanse": "",
       "subjectMatterExpertId": "",
-      "fase": "konseptfase"
+      "fase": "konseptfase",
+      "status": "ikke påbegynt"
     },
     {
       "id": "init-05",
@@ -244,7 +244,6 @@
       "effektForventet": "Redusert tidsbruk til manuell avstemming og færre feil.",
       "effektMaaling": "Timer brukt på avstemming per måned, målt før og etter innføring.",
       "prosesseierId": "eier-02",
-      "fremdriftsstatus": "avsluttet",
       "ragStatus": "green",
       "tidsperspektiv": "na",
       "kompleksitet": "lav",
@@ -256,7 +255,8 @@
       "avhengighetProsess": "",
       "avhengighetKompetanse": "",
       "subjectMatterExpertId": "",
-      "fase": "avslutningsfase"
+      "fase": "avslutningsfase",
+      "status": "avsluttet"
     },
     {
       "id": "init-06",
@@ -266,7 +266,6 @@
       "effektForventet": "Raskere fakturabehandling og redusert manuelt arbeid.",
       "effektMaaling": "Gjennomsnittlig behandlingstid per faktura.",
       "prosesseierId": "eier-07",
-      "fremdriftsstatus": "avsluttet",
       "ragStatus": "green",
       "tidsperspektiv": "na",
       "kompleksitet": "høy",
@@ -278,7 +277,8 @@
       "avhengighetProsess": "",
       "avhengighetKompetanse": "",
       "subjectMatterExpertId": "",
-      "fase": "avslutningsfase"
+      "fase": "avslutningsfase",
+      "status": "avsluttet"
     },
     {
       "id": "init-07",
@@ -288,7 +288,6 @@
       "effektForventet": "Tidligere varsling om avvik i kostnadsutviklingen.",
       "effektMaaling": "Andel avvik som fanges opp før periodeslutt.",
       "prosesseierId": "eier-06",
-      "fremdriftsstatus": "ikke påbegynt",
       "ragStatus": "green",
       "tidsperspektiv": "1til3aar",
       "kompleksitet": "høy",
@@ -300,7 +299,8 @@
       "avhengighetProsess": "",
       "avhengighetKompetanse": "",
       "subjectMatterExpertId": "",
-      "fase": "idéfase"
+      "fase": "idéfase",
+      "status": "ikke påbegynt"
     },
     {
       "id": "init-08",
@@ -310,7 +310,6 @@
       "effektForventet": "Redusert tid brukt på manuelle rapportbestillinger.",
       "effektMaaling": "Antall manuelle rapportbestillinger per måned.",
       "prosesseierId": "eier-05",
-      "fremdriftsstatus": "ikke påbegynt",
       "ragStatus": "amber",
       "tidsperspektiv": "1til3aar",
       "kompleksitet": "høy",
@@ -322,7 +321,8 @@
       "avhengighetProsess": "",
       "avhengighetKompetanse": "",
       "subjectMatterExpertId": "",
-      "fase": "konseptfase"
+      "fase": "konseptfase",
+      "status": "ikke påbegynt"
     },
     {
       "id": "init-09",
@@ -332,7 +332,6 @@
       "effektForventet": "Raskere oppdagelse av avvik i den finansielle rapporteringen.",
       "effektMaaling": "Tid fra avvik oppstår til det oppdages.",
       "prosesseierId": "eier-01",
-      "fremdriftsstatus": "ikke påbegynt",
       "ragStatus": "green",
       "tidsperspektiv": "1til3aar",
       "kompleksitet": "lav",
@@ -344,7 +343,8 @@
       "avhengighetProsess": "",
       "avhengighetKompetanse": "",
       "subjectMatterExpertId": "",
-      "fase": "forprosjektfase"
+      "fase": "forprosjektfase",
+      "status": "ikke påbegynt"
     }
   ],
   "eiere": [

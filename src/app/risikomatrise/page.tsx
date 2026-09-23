@@ -8,14 +8,14 @@ import InitiativeModal from "@/components/InitiativeModal";
 import type { Initiativ, RisikoSkala } from "@/lib/types";
 
 function cellFarge(score: number) {
-  if (score < 4) return "bg-emerald-100";
-  if (score > 8) return "bg-red-100";
+  if (score <= 4) return "bg-emerald-700";
+  if (score >= 8) return "bg-red-700";
   return "bg-yellow-100";
 }
 
 function dotFarge(score: number) {
-  if (score < 4) return "bg-emerald-500";
-  if (score > 8) return "bg-red-500";
+  if (score <= 4) return "bg-emerald-400";
+  if (score >= 8) return "bg-red-400";
   return "bg-yellow-500";
 }
 

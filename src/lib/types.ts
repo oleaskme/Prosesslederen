@@ -9,7 +9,7 @@ export type InitiativFase =
   | "gjennomføringsfase"
   | "avslutningsfase";
 
-export type Fremdriftsstatus = "ikke påbegynt" | "pågående" | "avsluttet";
+export type Status = "ikke påbegynt" | "pågående" | "avsluttet";
 
 export type RagStatus = "red" | "amber" | "green";
 
@@ -64,7 +64,7 @@ export interface Initiativ {
   prosesseierId: string;
   subjectMatterExpertId: string;
   fase: InitiativFase;
-  fremdriftsstatus: Fremdriftsstatus;
+  status: Status;
   ragStatus: RagStatus;
   tidsperspektiv: Tidsperspektiv;
   kompleksitet: Kompleksitet;
