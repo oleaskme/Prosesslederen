@@ -121,7 +121,7 @@ export default function KiAssistentPage() {
         </p>
       </div>
 
-      <div className="grid gap-4 lg:grid-cols-[1.1fr_1.4fr]">
+      <div className="grid gap-6 lg:grid-cols-[1.1fr_auto_1.4fr]">
         <div className="space-y-4">
           <div className={cardAccent("rose")}>
             <h2 className="text-sm font-semibold uppercase tracking-wide text-slate-500">Risikovarsler</h2>
@@ -189,6 +189,8 @@ export default function KiAssistentPage() {
             </ol>
           </div>
         </div>
+
+        <div className="hidden lg:block w-px bg-slate-300" />
 
         <div className="flex gap-4">
           <div className="w-56 shrink-0 space-y-2">
