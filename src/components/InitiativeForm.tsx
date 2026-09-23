@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   fremdriftLabels,
   fremdriftOptions,
@@ -18,7 +18,7 @@ import {
   tidsperspektivOptions,
 } from "@/lib/labels";
 import type { ProcessOption } from "@/lib/processHelpers";
-import type { Initiativ } from "@/lib/types";
+import type { Initiativ, ProsessEier } from "@/lib/types";
 import { buttonDanger, buttonGhost, buttonPrimary, inputClass } from "@/lib/ui";
 
 export type InitiativFormValues = Omit<Initiativ, "id" | "opprettet" | "oppdatert">;
@@ -32,6 +32,7 @@ const tomtSkjema: InitiativFormValues = {
   ressursbruksNivaa: "lav",
   ressursbruksKommentar: "",
   gevinsteier: "",
+  prosesseierId: "",
   status: "idé",
   fremdriftsstatus: "ikke påbegynt",
   ragStatus: "green",
@@ -81,6 +82,7 @@ export default function InitiativeForm({
           ressursbruksNivaa: initial.ressursbruksNivaa,
           ressursbruksKommentar: initial.ressursbruksKommentar,
           gevinsteier: initial.gevinsteier,
+          prosesseierId: initial.prosesseierId,
           status: initial.status,
           fremdriftsstatus: initial.fremdriftsstatus,
           ragStatus: initial.ragStatus,
@@ -98,6 +100,16 @@ export default function InitiativeForm({
   );
   const [lagrer, setLagrer] = useState(false);
   const [feil, setFeil] = useState<string | null>(null);
+  const [eiere, setEiere] = useState<ProsessEier[]>([]);
+
+  useEffect(() => {
+    async function hentEiere() {
+      const res = await fetch("/api/eiere", { cache: "no-store" });
+      const data = await res.json();
+      setEiere(data);
+    }
+    hentEiere();
+  }, []);
 
   function set<K extends keyof InitiativFormValues>(key: K, value: InitiativFormValues[K]) {
     setValues((v) => ({ ...v, [key]: value }));
@@ -209,13 +221,29 @@ export default function InitiativeForm({
         </Felt>
       </div>
 
-      <Felt label="Gevinsteier (navngitt person i linjen)">
-        <input
-          className={inputClass}
-          value={values.gevinsteier}
-          onChange={(e) => set("gevinsteier", e.target.value)}
-        />
-      </Felt>
+      <div className="grid gap-4 sm:grid-cols-2">
+        <Felt label="Gevinsteier (navngitt person i linjen)">
+          <input
+            className={inputClass}
+            value={values.gevinsteier}
+            onChange={(e) => set("gevinsteier", e.target.value)}
+          />
+        </Felt>
+        <Felt label="Prosesseier">
+          <select
+            className={inputClass}
+            value={values.prosesseierId}
+            onChange={(e) => set("prosesseierId", e.target.value)}
+          >
+            <option value="">Ikke satt</option>
+            {eiere.map((e) => (
+              <option key={e.id} value={e.id}>
+                {e.navn} · {e.avdeling}
+              </option>
+            ))}
+          </select>
+        </Felt>
+      </div>
 
       <div className="grid gap-4 sm:grid-cols-3">
         <Felt label="Status">

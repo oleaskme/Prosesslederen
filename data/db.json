@@ -145,12 +145,7 @@
         "delprosess": "GJENNOMFØRING",
         "eierOverstyring": null
       }
-    ],
-    "defaultOwners": {
-      "PLAN": "NN Plan",
-      "GJENNOMFØRING": "NN Gjennomføring",
-      "STYRING": "NN Styring"
-    }
+    ]
   },
   "initiatives": [
     {
@@ -176,7 +171,8 @@
       "gevinstMaalbar": true,
       "gevinstMaalbarKommentar": "",
       "opprettet": "2026-01-01T08:00:00.000Z",
-      "oppdatert": "2026-01-01T08:00:00.000Z"
+      "oppdatert": "2026-01-01T08:00:00.000Z",
+      "prosesseierId": "eier-02"
     },
     {
       "id": "init-02",
@@ -201,7 +197,8 @@
       "gevinstMaalbar": true,
       "gevinstMaalbarKommentar": "Antall regneark med registrert eier, målt over tid.",
       "opprettet": "2026-01-05T08:00:00.000Z",
-      "oppdatert": "2026-01-05T08:00:00.000Z"
+      "oppdatert": "2026-01-05T08:00:00.000Z",
+      "prosesseierId": "eier-05"
     },
     {
       "id": "init-03",
@@ -226,7 +223,8 @@
       "gevinstMaalbar": true,
       "gevinstMaalbarKommentar": "",
       "opprettet": "2026-01-10T08:00:00.000Z",
-      "oppdatert": "2026-01-10T08:00:00.000Z"
+      "oppdatert": "2026-01-10T08:00:00.000Z",
+      "prosesseierId": "eier-03"
     },
     {
       "id": "init-04",
@@ -251,7 +249,138 @@
       "gevinstMaalbar": true,
       "gevinstMaalbarKommentar": "",
       "opprettet": "2026-01-12T08:00:00.000Z",
-      "oppdatert": "2026-01-12T08:00:00.000Z"
+      "oppdatert": "2026-01-12T08:00:00.000Z",
+      "prosesseierId": "eier-04"
+    },
+    {
+      "id": "init-05",
+      "navn": "Automatisert avstemming av bankkontoer",
+      "beskrivelse": "Automatisk avstemming av bankkontoer mot regnskapet, i stedet for manuell kontroll ved hver periode.",
+      "berortProcessId": "l3-01",
+      "effektForventet": "Redusert tidsbruk til manuell avstemming og færre feil.",
+      "effektMaaling": "Timer brukt på avstemming per måned, målt før og etter innføring.",
+      "ressursbruksNivaa": "middels",
+      "ressursbruksKommentar": "Krevde tilpasning mot bankforbindelsen og regnskapssystemet.",
+      "gevinsteier": "Per Haugen",
+      "prosesseierId": "eier-02",
+      "status": "i drift",
+      "fremdriftsstatus": "avsluttet",
+      "ragStatus": "green",
+      "tidsperspektiv": "na",
+      "kompleksitet": "lav",
+      "avhengigheter": "Ingen kjente.",
+      "leverandorbinding": true,
+      "leverandorbindingKommentar": "Løsningen bruker bankforbindelsens standardintegrasjon.",
+      "risikoSannsynlighet": 1,
+      "risikoKonsekvens": 2,
+      "gevinstMaalbar": true,
+      "gevinstMaalbarKommentar": "Målt reduksjon i timer brukt til avstemming.",
+      "opprettet": "2026-02-01T08:00:00.000Z",
+      "oppdatert": "2026-02-01T08:00:00.000Z"
+    },
+    {
+      "id": "init-06",
+      "navn": "Robotisert fakturabehandling",
+      "beskrivelse": "Innføring av robotisert prosessautomatisering (RPA) for kontroll og bokføring av innkommende fakturaer.",
+      "berortProcessId": "l3-06",
+      "effektForventet": "Raskere fakturabehandling og redusert manuelt arbeid.",
+      "effektMaaling": "Gjennomsnittlig behandlingstid per faktura.",
+      "ressursbruksNivaa": "høy",
+      "ressursbruksKommentar": "Krevde ny programvare og opplæring av ansatte.",
+      "gevinsteier": "Mona Skaug",
+      "prosesseierId": "eier-07",
+      "status": "i drift",
+      "fremdriftsstatus": "avsluttet",
+      "ragStatus": "green",
+      "tidsperspektiv": "na",
+      "kompleksitet": "høy",
+      "avhengigheter": "Integrasjon mot fakturasystemet.",
+      "leverandorbinding": true,
+      "leverandorbindingKommentar": "Bruker en ekstern RPA-plattform.",
+      "risikoSannsynlighet": 2,
+      "risikoKonsekvens": 2,
+      "gevinstMaalbar": true,
+      "gevinstMaalbarKommentar": "Gjennomsnittlig behandlingstid redusert med over halvparten.",
+      "opprettet": "2026-02-05T08:00:00.000Z",
+      "oppdatert": "2026-02-05T08:00:00.000Z"
+    },
+    {
+      "id": "init-07",
+      "navn": "Prediktiv kostnadsanalyse med maskinlæring",
+      "beskrivelse": "Utforske bruk av maskinlæring til å forutsi kostnadsutvikling i utvalgte kostnadskategorier.",
+      "berortProcessId": "l3-03",
+      "effektForventet": "Tidligere varsling om avvik i kostnadsutviklingen.",
+      "effektMaaling": "Andel avvik som fanges opp før periodeslutt.",
+      "ressursbruksNivaa": "høy",
+      "ressursbruksKommentar": "Krever datagrunnlag over tid og teknisk kompetanse.",
+      "gevinsteier": "Thomas Berge",
+      "prosesseierId": "eier-06",
+      "status": "idé",
+      "fremdriftsstatus": "ikke påbegynt",
+      "ragStatus": "green",
+      "tidsperspektiv": "1til3aar",
+      "kompleksitet": "høy",
+      "avhengigheter": "Tilstrekkelig historisk datagrunnlag må være på plass.",
+      "leverandorbinding": false,
+      "leverandorbindingKommentar": "",
+      "risikoSannsynlighet": 3,
+      "risikoKonsekvens": 3,
+      "gevinstMaalbar": false,
+      "gevinstMaalbarKommentar": "Ikke avklart hvordan effekten skal måles på dette stadiet.",
+      "opprettet": "2026-02-10T08:00:00.000Z",
+      "oppdatert": "2026-02-10T08:00:00.000Z"
+    },
+    {
+      "id": "init-08",
+      "navn": "Selvbetjeningsportal for virksomhetsstyring",
+      "beskrivelse": "En portal der ledere selv kan hente ut styringsinformasjon, i stedet for å bestille rapporter fra seksjonen.",
+      "berortProcessId": "l3-04",
+      "effektForventet": "Redusert tid brukt på manuelle rapportbestillinger.",
+      "effektMaaling": "Antall manuelle rapportbestillinger per måned.",
+      "ressursbruksNivaa": "høy",
+      "ressursbruksKommentar": "Krever ny teknisk løsning og endret arbeidsmåte hos ledere.",
+      "gevinsteier": "Ingrid Fjeld",
+      "prosesseierId": "eier-05",
+      "status": "vurdert",
+      "fremdriftsstatus": "ikke påbegynt",
+      "ragStatus": "amber",
+      "tidsperspektiv": "1til3aar",
+      "kompleksitet": "høy",
+      "avhengigheter": "Avklaring av hvilke systemer portalen skal hente data fra.",
+      "leverandorbinding": false,
+      "leverandorbindingKommentar": "",
+      "risikoSannsynlighet": 3,
+      "risikoKonsekvens": 4,
+      "gevinstMaalbar": true,
+      "gevinstMaalbarKommentar": "Antall manuelle rapportbestillinger, målt over tid.",
+      "opprettet": "2026-02-15T08:00:00.000Z",
+      "oppdatert": "2026-02-15T08:00:00.000Z"
+    },
+    {
+      "id": "init-09",
+      "navn": "Sanntids dashboard for finansiell rapportering",
+      "beskrivelse": "Et dashboard som viser finansielle nøkkeltall løpende, i stedet for i faste periodiske rapporter.",
+      "berortProcessId": "l3-05",
+      "effektForventet": "Raskere oppdagelse av avvik i den finansielle rapporteringen.",
+      "effektMaaling": "Tid fra avvik oppstår til det oppdages.",
+      "ressursbruksNivaa": "middels",
+      "ressursbruksKommentar": "Krever tilgang til sanntidsdata fra kildesystemene.",
+      "gevinsteier": "Kari Solberg",
+      "prosesseierId": "eier-01",
+      "status": "prioritert",
+      "fremdriftsstatus": "ikke påbegynt",
+      "ragStatus": "green",
+      "tidsperspektiv": "1til3aar",
+      "kompleksitet": "lav",
+      "avhengigheter": "Sanntidstilgang til kildesystemene må være avklart.",
+      "leverandorbinding": false,
+      "leverandorbindingKommentar": "",
+      "risikoSannsynlighet": 2,
+      "risikoKonsekvens": 3,
+      "gevinstMaalbar": true,
+      "gevinstMaalbarKommentar": "Tid fra avvik oppstår til det oppdages, målt før og etter innføring.",
+      "opprettet": "2026-02-20T08:00:00.000Z",
+      "oppdatert": "2026-02-20T08:00:00.000Z"
     }
   ],
   "eiere": [
@@ -259,48 +388,56 @@
       "id": "eier-01",
       "navn": "Kari Solberg",
       "avdeling": "Styringsdata- og digitaliseringsseksjonen",
+      "seksjon": "STYRING",
       "tittel": "Seksjonssjef"
     },
     {
       "id": "eier-02",
       "navn": "Per Haugen",
       "avdeling": "Regnskapsseksjonen",
+      "seksjon": "GJENNOMFØRING",
       "tittel": "Fagansvarlig regnskap"
     },
     {
       "id": "eier-03",
       "navn": "Anne Lie Bakken",
       "avdeling": "Budsjettseksjonen",
+      "seksjon": "PLAN",
       "tittel": "Rådgiver"
     },
     {
       "id": "eier-04",
       "navn": "Erik Nordahl",
       "avdeling": "Controllerseksjonen",
+      "seksjon": "STYRING",
       "tittel": "Controller"
     },
     {
       "id": "eier-05",
       "navn": "Ingrid Fjeld",
       "avdeling": "Styringsdata- og digitaliseringsseksjonen",
+      "seksjon": "PLAN",
       "tittel": "Prosjektleder digitalisering"
     },
     {
       "id": "eier-06",
       "navn": "Thomas Berge",
       "avdeling": "Økonomistyringsseksjonen",
+      "seksjon": "PLAN",
       "tittel": "Seniorrådgiver"
     },
     {
       "id": "eier-07",
       "navn": "Mona Skaug",
       "avdeling": "Regnskapsseksjonen",
+      "seksjon": "GJENNOMFØRING",
       "tittel": "Regnskapsmedarbeider"
     },
     {
       "id": "eier-08",
       "navn": "Lars Vik",
       "avdeling": "IT-seksjonen",
+      "seksjon": "GJENNOMFØRING",
       "tittel": "Systemansvarlig"
     }
   ]

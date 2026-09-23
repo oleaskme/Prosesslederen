@@ -10,7 +10,7 @@ type Seksjon = "hierarki" | "eiere" | "status";
 
 const seksjoner: { id: Seksjon; label: string; beskrivelse: string }[] = [
   { id: "hierarki", label: "Prosesshierarki", beskrivelse: "APQC-hierarki, nivå 1 til 3" },
-  { id: "eiere", label: "Prosesseiere", beskrivelse: "Standard eiere per delprosess" },
+  { id: "eiere", label: "Prosesseiere", beskrivelse: "Register over eiere og seksjoner" },
   { id: "status", label: "Status", beskrivelse: "Fordeling av initiativer" },
 ];
 
@@ -59,7 +59,7 @@ export default function AdminPage() {
               <ProcessTree hierarchy={hierarchy} onChanged={refetch} />
             </div>
           )}
-          {valgt === "eiere" && <ProsesseierePanel hierarchy={hierarchy} onChanged={refetch} />}
+          {valgt === "eiere" && <ProsesseierePanel />}
           {valgt === "status" && <StatusPanel initiatives={initiatives} />}
         </div>
       </div>

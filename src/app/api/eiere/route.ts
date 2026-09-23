@@ -15,6 +15,7 @@ export async function POST(request: NextRequest) {
     id: generateId("eier"),
     navn: body.navn ?? "",
     avdeling: body.avdeling ?? "",
+    seksjon: body.seksjon ?? "GJENNOMFØRING",
     tittel: body.tittel ?? "",
   };
 

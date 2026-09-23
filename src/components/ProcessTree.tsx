@@ -94,7 +94,6 @@ export default function ProcessTree({
                     level2Id={l2.id}
                     navn={l2.navn}
                     level3={hierarchy.level3.filter((n) => n.level2Id === l2.id)}
-                    defaultOwners={hierarchy.defaultOwners}
                     onChanged={onChanged}
                   />
                 ))}
@@ -112,13 +111,11 @@ function Level2Row({
   level2Id,
   navn,
   level3,
-  defaultOwners,
   onChanged,
 }: {
   level2Id: string;
   navn: string;
   level3: ProcessHierarchy["level3"];
-  defaultOwners: ProcessHierarchy["defaultOwners"];
   onChanged: () => Promise<void>;
 }) {
   const [navnVerdi, setNavnVerdi] = useState(navn);
@@ -166,12 +163,7 @@ function Level2Row({
                 </option>
               ))}
             </select>
-            <EierInput
-              id={l3.id}
-              standard={defaultOwners[l3.delprosess]}
-              verdi={l3.eierOverstyring}
-              onChanged={onChanged}
-            />
+            <EierInput id={l3.id} verdi={l3.eierOverstyring} onChanged={onChanged} />
             <button
               onClick={async () => {
                 if (!confirm(`Slette prosessen «${l3.navn}»?`)) return;
@@ -208,12 +200,10 @@ function Level3NavnInput({ id, navn, onChanged }: { id: string; navn: string; on
 
 function EierInput({
   id,
-  standard,
   verdi,
   onChanged,
 }: {
   id: string;
-  standard: string;
   verdi: string | null;
   onChanged: () => Promise<void>;
 }) {
@@ -221,7 +211,7 @@ function EierInput({
   return (
     <input
       className={inputClass}
-      placeholder={`Standard: ${standard}`}
+      placeholder="Ingen overstyring satt"
       value={tekst}
       onChange={(e) => setTekst(e.target.value)}
       onBlur={async () => {

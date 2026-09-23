@@ -22,5 +22,5 @@ export function getProcessLabel(hierarchy: ProcessHierarchy, level3Id: string): 
 export function getProcessOwner(hierarchy: ProcessHierarchy, level3Id: string): string {
   const l3 = hierarchy.level3.find((n) => n.id === level3Id);
   if (!l3) return "Ukjent";
-  return l3.eierOverstyring || hierarchy.defaultOwners[l3.delprosess];
+  return l3.eierOverstyring || "Ikke satt";
 }

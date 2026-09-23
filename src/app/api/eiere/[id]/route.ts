@@ -17,6 +17,7 @@ export async function PUT(
     ...db.eiere[index],
     navn: body.navn ?? db.eiere[index].navn,
     avdeling: body.avdeling ?? db.eiere[index].avdeling,
+    seksjon: body.seksjon ?? db.eiere[index].seksjon,
     tittel: body.tittel ?? db.eiere[index].tittel,
   };
 

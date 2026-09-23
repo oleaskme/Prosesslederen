@@ -2,11 +2,13 @@
 
 import { useEffect, useState } from "react";
 import { buttonDanger, buttonGhost, buttonPrimary, cardAccent, inputClass } from "@/lib/ui";
-import type { ProsessEier } from "@/lib/types";
+import type { Delprosess, ProsessEier } from "@/lib/types";
 
-type Utkast = { navn: string; avdeling: string; tittel: string };
+type Utkast = { navn: string; avdeling: string; seksjon: Delprosess; tittel: string };
 
-const tomtUtkast: Utkast = { navn: "", avdeling: "", tittel: "" };
+const tomtUtkast: Utkast = { navn: "", avdeling: "", seksjon: "GJENNOMFØRING", tittel: "" };
+
+const seksjonOptions: Delprosess[] = ["PLAN", "GJENNOMFØRING", "STYRING"];
 
 export default function EiereRegister() {
   const [eiere, setEiere] = useState<ProsessEier[] | null>(null);
@@ -26,7 +28,7 @@ export default function EiereRegister() {
   }, []);
 
   function startRediger(e: ProsessEier) {
-    setUtkast((u) => ({ ...u, [e.id]: { navn: e.navn, avdeling: e.avdeling, tittel: e.tittel } }));
+    setUtkast((u) => ({ ...u, [e.id]: { navn: e.navn, avdeling: e.avdeling, seksjon: e.seksjon, tittel: e.tittel } }));
     setRedigerer((s) => new Set(s).add(e.id));
   }
 
@@ -47,7 +49,7 @@ export default function EiereRegister() {
     if (!eiere) return;
     const nyttUtkast: Record<string, Utkast> = {};
     eiere.forEach((e) => {
-      nyttUtkast[e.id] = { navn: e.navn, avdeling: e.avdeling, tittel: e.tittel };
+      nyttUtkast[e.id] = { navn: e.navn, avdeling: e.avdeling, seksjon: e.seksjon, tittel: e.tittel };
     });
     setUtkast(nyttUtkast);
     setRedigerer(new Set(eiere.map((e) => e.id)));
@@ -119,7 +121,7 @@ export default function EiereRegister() {
 
   const bulkModus = eiere.length > 0 && eiere.every((e) => redigerer.has(e.id));
 
-  function felt(id: string, nokkel: keyof Utkast, placeholder: string) {
+  function felt(id: string, nokkel: "navn" | "avdeling" | "tittel", placeholder: string) {
     const rad = utkast[id] ?? tomtUtkast;
     return (
       <input
@@ -133,13 +135,32 @@ export default function EiereRegister() {
     );
   }
 
+  function seksjonSelect(id: string) {
+    const rad = utkast[id] ?? tomtUtkast;
+    return (
+      <select
+        className={inputClass}
+        value={rad.seksjon}
+        onChange={(ev) =>
+          setUtkast((u) => ({ ...u, [id]: { ...(u[id] ?? tomtUtkast), seksjon: ev.target.value as Delprosess } }))
+        }
+      >
+        {seksjonOptions.map((s) => (
+          <option key={s} value={s}>
+            {s}
+          </option>
+        ))}
+      </select>
+    );
+  }
+
   return (
     <div className={cardAccent("indigo")}>
       <div className="flex flex-wrap items-center justify-between gap-2">
         <div>
           <h3 className="font-medium text-slate-900">Eiere</h3>
           <p className="mt-0.5 text-xs text-slate-500">
-            Register over personer som kan settes som prosesseier, med avdeling og tittel.
+            Register over personer som kan settes som prosesseier, med avdeling, seksjon og tittel.
           </p>
         </div>
         {bulkModus ? (
@@ -164,6 +185,7 @@ export default function EiereRegister() {
             <tr>
               <th className="py-2 pr-3">Navn</th>
               <th className="py-2 pr-3">Avdeling</th>
+              <th className="py-2 pr-3">Seksjon</th>
               <th className="py-2 pr-3">Tittel</th>
               <th className="py-2 pr-1 text-right">Handling</th>
             </tr>
@@ -178,6 +200,9 @@ export default function EiereRegister() {
                   </td>
                   <td className="py-2 pr-3">
                     {rediger ? felt(e.id, "avdeling", "Avdeling") : <span className="text-slate-600">{e.avdeling}</span>}
+                  </td>
+                  <td className="py-2 pr-3">
+                    {rediger ? seksjonSelect(e.id) : <span className="text-slate-600">{e.seksjon}</span>}
                   </td>
                   <td className="py-2 pr-3">
                     {rediger ? felt(e.id, "tittel", "Tittel") : <span className="text-slate-600">{e.tittel}</span>}
@@ -210,7 +235,7 @@ export default function EiereRegister() {
             })}
             {eiere.length === 0 && (
               <tr>
-                <td colSpan={4} className="py-4 text-center text-slate-400">
+                <td colSpan={5} className="py-4 text-center text-slate-400">
                   Ingen eiere registrert ennå.
                 </td>
               </tr>
@@ -221,7 +246,7 @@ export default function EiereRegister() {
 
       <div className="mt-4 border-t border-slate-100 pt-3">
         {nyEier ? (
-          <div className="grid gap-2 sm:grid-cols-4">
+          <div className="grid gap-2 sm:grid-cols-5">
             <input
               className={inputClass}
               placeholder="Navn"
@@ -234,6 +259,17 @@ export default function EiereRegister() {
               value={nyEier.avdeling}
               onChange={(e) => setNyEier({ ...nyEier, avdeling: e.target.value })}
             />
+            <select
+              className={inputClass}
+              value={nyEier.seksjon}
+              onChange={(e) => setNyEier({ ...nyEier, seksjon: e.target.value as Delprosess })}
+            >
+              {seksjonOptions.map((s) => (
+                <option key={s} value={s}>
+                  {s}
+                </option>
+              ))}
+            </select>
             <input
               className={inputClass}
               placeholder="Tittel"

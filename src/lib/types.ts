@@ -43,16 +43,11 @@ export interface ProcessLevel3 {
   eierOverstyring: string | null;
 }
 
-export interface DefaultOwners {
-  PLAN: string;
-  GJENNOMFØRING: string;
-  STYRING: string;
-}
-
 export interface ProsessEier {
   id: string;
   navn: string;
   avdeling: string;
+  seksjon: Delprosess;
   tittel: string;
 }
 
@@ -60,7 +55,6 @@ export interface ProcessHierarchy {
   level1: ProcessLevel1[];
   level2: ProcessLevel2[];
   level3: ProcessLevel3[];
-  defaultOwners: DefaultOwners;
 }
 
 export interface Initiativ {
@@ -73,6 +67,7 @@ export interface Initiativ {
   ressursbruksNivaa: Nivaa;
   ressursbruksKommentar: string;
   gevinsteier: string;
+  prosesseierId: string;
   status: InitiativStatus;
   fremdriftsstatus: Fremdriftsstatus;
   ragStatus: RagStatus;

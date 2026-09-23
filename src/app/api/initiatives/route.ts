@@ -22,6 +22,7 @@ export async function POST(request: NextRequest) {
     ressursbruksNivaa: body.ressursbruksNivaa ?? "lav",
     ressursbruksKommentar: body.ressursbruksKommentar ?? "",
     gevinsteier: body.gevinsteier ?? "",
+    prosesseierId: body.prosesseierId ?? "",
     status: body.status ?? "idé",
     fremdriftsstatus: body.fremdriftsstatus ?? "ikke påbegynt",
     ragStatus: body.ragStatus ?? "green",
