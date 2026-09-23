@@ -141,6 +141,13 @@ export default function KiAssistentPage() {
           <div className={cardAccent("amber")}>
             <h2 className="text-sm font-semibold uppercase tracking-wide text-slate-500">Effektmåling</h2>
             <p className="mt-2 text-sm text-slate-700">{effektTiltak(analyse)}</p>
+            {analyse.svakEffektmaaling.length > 2 && (
+              <ul className="mt-2 space-y-1 text-sm text-slate-500">
+                {analyse.svakEffektmaaling.map((i) => (
+                  <li key={i.id}>{i.navn}</li>
+                ))}
+              </ul>
+            )}
           </div>
 
           <div className={cardAccent("sky")}>

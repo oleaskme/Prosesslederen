@@ -15,9 +15,25 @@ export interface PorteføljeAnalyse {
 const SVAK_EFFEKT_LENGDE = 20;
 const RISIKO_VARSEL_TERSKEL = 8;
 
+const BASELINE_NOKKELORD = [
+  "før og etter",
+  "fra dagens",
+  "dagens nivå",
+  "sammenlignet med i dag",
+  "baseline",
+  "nullpunkt",
+  "målt før",
+  "nåsituasjon",
+];
+
+function harBaselinereferanse(tekst: string): boolean {
+  const lav = tekst.toLowerCase();
+  return BASELINE_NOKKELORD.some((n) => lav.includes(n));
+}
+
 export function analyserPortefolje(initiatives: Initiativ[]): PorteføljeAnalyse {
   const svakEffektmaaling = initiatives.filter(
-    (i) => i.effektMaaling.trim().length < SVAK_EFFEKT_LENGDE
+    (i) => i.effektMaaling.trim().length < SVAK_EFFEKT_LENGDE || !harBaselinereferanse(i.effektMaaling)
   );
 
   const grupperPerProsess = new Map<string, Initiativ[]>();
@@ -62,13 +78,13 @@ export function risikoTiltak(analyse: PorteføljeAnalyse): string {
 export function effektTiltak(analyse: PorteføljeAnalyse): string {
   const antall = analyse.svakEffektmaaling.length;
   if (antall === 0) {
-    return "Effektmålingen i porteføljen er god i dag. Fortsett å kreve en konkret og målbar effektbeskrivelse på nye initiativer.";
+    return "Effektmålingen i porteføljen viser tydelig hvordan forbedringen fra dagens nivå (baseline) til ny målsetting skal fastslås. Fortsett å kreve dette på nye initiativer.";
   }
   const navn = analyse.svakEffektmaaling.map((i) => i.navn);
   if (antall <= 2) {
-    return `${joinNorsk(navn)} bør konkretisere effektmålingen med et tallfestet mål.`;
+    return `${joinNorsk(navn)} bør beskrive effektmålingen som en endring fra dagens nivå (baseline) til en konkret ny KPI, ikke bare hvilket tall som skal følges.`;
   }
-  return `${antall} initiativer mangler en konkret effektmåling: ${joinNorsk(navn)}. Vurder å innføre en felles mal for effektbeskrivelser i porteføljen.`;
+  return `${antall} initiativer beskriver hva som skal måles, men ikke hvordan forbedringen fra dagens nivå til ny KPI fastslås. Vurder å kreve en felles mal med baseline og mål for alle initiativer.`;
 }
 
 export function overlappTiltak(analyse: PorteføljeAnalyse): string {
