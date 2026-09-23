@@ -4,7 +4,6 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 const faner = [
-  { href: "/initiativer", label: "Initiativoversikt" },
   { href: "/initiativvisning", label: "Initiativer" },
   { href: "/prioriteringsmatrise", label: "Prioriteringsmatrise" },
   { href: "/risikomatrise", label: "Risikomatrise" },

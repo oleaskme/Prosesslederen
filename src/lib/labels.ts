@@ -1,6 +1,6 @@
 import type {
   Fremdriftsstatus,
-  InitiativStatus,
+  InitiativFase,
   Kompleksitet,
   ProcessRelevans,
   RagStatus,
@@ -8,22 +8,22 @@ import type {
   Tidsperspektiv,
 } from "./types";
 
-export const statusLabels: Record<InitiativStatus, string> = {
-  "idé": "Idé",
-  vurdert: "Vurdert",
-  prioritert: "Prioritert",
-  "pågår": "Pågår",
-  "i drift": "I drift",
-  "lagt ned": "Lagt ned",
+// Fasene følger Prinsix, Forsvarets prosjektmodell for IKT- og materiellinvesteringer.
+// Kilde: https://www.fma.no/prinsix/prosjektfaser
+export const faseLabels: Record<InitiativFase, string> = {
+  "idéfase": "Idéfase",
+  konseptfase: "Konseptfase",
+  forprosjektfase: "Forprosjektfase",
+  "gjennomføringsfase": "Gjennomføringsfase",
+  avslutningsfase: "Avslutningsfase",
 };
 
-export const statusOptions: InitiativStatus[] = [
-  "idé",
-  "vurdert",
-  "prioritert",
-  "pågår",
-  "i drift",
-  "lagt ned",
+export const faseOptions: InitiativFase[] = [
+  "idéfase",
+  "konseptfase",
+  "forprosjektfase",
+  "gjennomføringsfase",
+  "avslutningsfase",
 ];
 
 export const fremdriftLabels: Record<Fremdriftsstatus, string> = {

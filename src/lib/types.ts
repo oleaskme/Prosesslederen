@@ -2,13 +2,12 @@ export type Delprosess = "PLAN" | "GJENNOMFØRING" | "STYRING";
 
 export type ProcessRelevans = "kjerne" | "grensesnitt" | "indirekte" | "ikke relevant";
 
-export type InitiativStatus =
-  | "idé"
-  | "vurdert"
-  | "prioritert"
-  | "pågår"
-  | "i drift"
-  | "lagt ned";
+export type InitiativFase =
+  | "idéfase"
+  | "konseptfase"
+  | "forprosjektfase"
+  | "gjennomføringsfase"
+  | "avslutningsfase";
 
 export type Fremdriftsstatus = "ikke påbegynt" | "pågående" | "avsluttet";
 
@@ -64,7 +63,7 @@ export interface Initiativ {
   effektMaaling: string;
   prosesseierId: string;
   subjectMatterExpertId: string;
-  status: InitiativStatus;
+  fase: InitiativFase;
   fremdriftsstatus: Fremdriftsstatus;
   ragStatus: RagStatus;
   tidsperspektiv: Tidsperspektiv;

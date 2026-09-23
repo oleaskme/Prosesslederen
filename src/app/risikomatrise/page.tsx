@@ -7,29 +7,17 @@ import { risikoSkalaLabels } from "@/lib/labels";
 import InitiativeModal from "@/components/InitiativeModal";
 import type { Initiativ, RisikoSkala } from "@/lib/types";
 
-const cellFarge: Record<number, string> = {
-  2: "bg-emerald-50",
-  3: "bg-emerald-100",
-  4: "bg-lime-100",
-  5: "bg-yellow-100",
-  6: "bg-amber-100",
-  7: "bg-orange-100",
-  8: "bg-orange-200",
-  9: "bg-red-100",
-  10: "bg-red-200",
-};
+function cellFarge(score: number) {
+  if (score < 4) return "bg-emerald-100";
+  if (score > 8) return "bg-red-100";
+  return "bg-yellow-100";
+}
 
-const dotFarge: Record<number, string> = {
-  2: "bg-emerald-500",
-  3: "bg-emerald-500",
-  4: "bg-lime-500",
-  5: "bg-yellow-500",
-  6: "bg-amber-500",
-  7: "bg-orange-500",
-  8: "bg-orange-600",
-  9: "bg-red-500",
-  10: "bg-red-600",
-};
+function dotFarge(score: number) {
+  if (score < 4) return "bg-emerald-500";
+  if (score > 8) return "bg-red-500";
+  return "bg-yellow-500";
+}
 
 const bokstaver = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
 
@@ -102,7 +90,7 @@ export default function RisikomatrisePage() {
                     return (
                       <div
                         key={`${sannsynlighet}-${konsekvens}`}
-                        className={`min-h-[84px] rounded-lg border border-slate-200 p-1.5 ${cellFarge[score]}`}
+                        className={`min-h-[84px] rounded-lg border border-slate-200 p-1.5 ${cellFarge(score)}`}
                       >
                         <div className="flex flex-wrap gap-1">
                           {items.map((i) => (
@@ -110,7 +98,7 @@ export default function RisikomatrisePage() {
                               key={i.id}
                               onClick={() => setValgt(i)}
                               title={i.navn}
-                              className={`flex h-7 w-7 items-center justify-center rounded-full text-xs font-semibold text-white shadow-sm hover:opacity-80 ${dotFarge[score]}`}
+                              className={`flex h-7 w-7 items-center justify-center rounded-full text-xs font-semibold text-white shadow-sm hover:opacity-80 ${dotFarge(score)}`}
                             >
                               {i.bokstav}
                             </button>
@@ -140,7 +128,7 @@ export default function RisikomatrisePage() {
                     className="flex w-full items-center gap-2.5 rounded-lg border border-slate-200 bg-white px-3 py-2 text-left text-sm shadow-sm hover:border-indigo-300"
                   >
                     <span
-                      className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-xs font-semibold text-white ${dotFarge[score]}`}
+                      className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-xs font-semibold text-white ${dotFarge(score)}`}
                     >
                       {i.bokstav}
                     </span>

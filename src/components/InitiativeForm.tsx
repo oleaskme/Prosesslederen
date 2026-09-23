@@ -2,6 +2,8 @@
 
 import { useEffect, useState } from "react";
 import {
+  faseLabels,
+  faseOptions,
   fremdriftLabels,
   fremdriftOptions,
   kompleksitetLabels,
@@ -10,8 +12,6 @@ import {
   ragOptions,
   risikoSkalaLabels,
   risikoSkalaOptions,
-  statusLabels,
-  statusOptions,
   tidsperspektivLabels,
   tidsperspektivOptions,
 } from "@/lib/labels";
@@ -29,7 +29,7 @@ const tomtSkjema: InitiativFormValues = {
   effektMaaling: "",
   prosesseierId: "",
   subjectMatterExpertId: "",
-  status: "idé",
+  fase: "idéfase",
   fremdriftsstatus: "ikke påbegynt",
   ragStatus: "green",
   tidsperspektiv: "na",
@@ -92,7 +92,7 @@ export default function InitiativeForm({
           effektMaaling: initial.effektMaaling,
           prosesseierId: initial.prosesseierId,
           subjectMatterExpertId: initial.subjectMatterExpertId,
-          status: initial.status,
+          fase: initial.fase,
           fremdriftsstatus: initial.fremdriftsstatus,
           ragStatus: initial.ragStatus,
           tidsperspektiv: initial.tidsperspektiv,
@@ -121,8 +121,6 @@ export default function InitiativeForm({
   function set<K extends keyof InitiativFormValues>(key: K, value: InitiativFormValues[K]) {
     setValues((v) => ({ ...v, [key]: value }));
   }
-
-  const fremdriftRelevant = values.status === "pågår" || values.status === "i drift";
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -244,25 +242,11 @@ export default function InitiativeForm({
 
       <Seksjon tittel="Status og fremdrift" farge="amber">
         <div className="grid gap-4 sm:grid-cols-3">
-          <Felt label="Status">
-            <select
-              className={inputClass}
-              value={values.status}
-              onChange={(e) => set("status", e.target.value as InitiativFormValues["status"])}
-            >
-              {statusOptions.map((s) => (
-                <option key={s} value={s}>
-                  {statusLabels[s]}
-                </option>
-              ))}
-            </select>
-          </Felt>
           <Felt label="Fremdriftsstatus">
             <select
-              className={`${inputClass} ${!fremdriftRelevant ? "opacity-50" : ""}`}
+              className={inputClass}
               value={values.fremdriftsstatus}
               onChange={(e) => set("fremdriftsstatus", e.target.value as InitiativFormValues["fremdriftsstatus"])}
-              disabled={!fremdriftRelevant}
             >
               {fremdriftOptions.map((f) => (
                 <option key={f} value={f}>
@@ -270,11 +254,19 @@ export default function InitiativeForm({
                 </option>
               ))}
             </select>
-            {!fremdriftRelevant && (
-              <span className="mt-1 block text-xs text-slate-400">
-                Kun relevant når status er pågår eller i drift.
-              </span>
-            )}
+          </Felt>
+          <Felt label="Fase">
+            <select
+              className={inputClass}
+              value={values.fase}
+              onChange={(e) => set("fase", e.target.value as InitiativFormValues["fase"])}
+            >
+              {faseOptions.map((s) => (
+                <option key={s} value={s}>
+                  {faseLabels[s]}
+                </option>
+              ))}
+            </select>
           </Felt>
           <Felt label="RAG-status">
             <select

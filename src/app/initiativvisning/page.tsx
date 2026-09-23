@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { useAppData } from "@/hooks/useAppData";
 import { getProcessOptions } from "@/lib/processHelpers";
-import { ragColor, statusLabels, statusOptions } from "@/lib/labels";
+import { faseLabels, faseOptions, ragColor } from "@/lib/labels";
 import InitiativePanel from "@/components/InitiativePanel";
 import { buttonPrimary, selectClass } from "@/lib/ui";
 import type { ProsessEier } from "@/lib/types";
@@ -11,7 +11,7 @@ import type { ProsessEier } from "@/lib/types";
 export default function InitiativerPage() {
   const { initiatives, hierarchy, loading, refetch } = useAppData();
   const [eiere, setEiere] = useState<ProsessEier[]>([]);
-  const [statusFilter, setStatusFilter] = useState<string>("alle");
+  const [faseFilter, setFaseFilter] = useState<string>("alle");
   const [eierFilter, setEierFilter] = useState<string>("alle");
   const [valgtId, setValgtId] = useState<string | "ny" | null>(null);
   const [resetToken, setResetToken] = useState(0);
@@ -30,11 +30,11 @@ export default function InitiativerPage() {
   const filtrert = useMemo(() => {
     if (!initiatives) return [];
     return initiatives.filter((i) => {
-      if (statusFilter !== "alle" && i.status !== statusFilter) return false;
+      if (faseFilter !== "alle" && i.fase !== faseFilter) return false;
       if (eierFilter !== "alle" && i.prosesseierId !== eierFilter) return false;
       return true;
     });
-  }, [initiatives, statusFilter, eierFilter]);
+  }, [initiatives, faseFilter, eierFilter]);
 
   const effektivId = valgtId ?? filtrert[0]?.id ?? null;
   const valgtInitiativ =
@@ -87,16 +87,16 @@ export default function InitiativerPage() {
 
           <div className="space-y-2 rounded-xl border border-slate-200 bg-white p-3 shadow-sm">
             <label className="block">
-              <span className="mb-1 block text-xs font-medium text-slate-500">Status</span>
+              <span className="mb-1 block text-xs font-medium text-slate-500">Fase</span>
               <select
                 className={`${selectClass} w-full`}
-                value={statusFilter}
-                onChange={(e) => setStatusFilter(e.target.value)}
+                value={faseFilter}
+                onChange={(e) => setFaseFilter(e.target.value)}
               >
-                <option value="alle">Alle statuser</option>
-                {statusOptions.map((s) => (
+                <option value="alle">Alle faser</option>
+                {faseOptions.map((s) => (
                   <option key={s} value={s}>
-                    {statusLabels[s]}
+                    {faseLabels[s]}
                   </option>
                 ))}
               </select>

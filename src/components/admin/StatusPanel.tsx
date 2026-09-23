@@ -1,4 +1,4 @@
-import { fremdriftLabels, fremdriftOptions, ragColor, ragLabels, ragOptions, statusLabels, statusOptions } from "@/lib/labels";
+import { faseLabels, faseOptions, fremdriftLabels, fremdriftOptions, ragColor, ragLabels, ragOptions } from "@/lib/labels";
 import { cardAccent } from "@/lib/ui";
 import type { Initiativ } from "@/lib/types";
 
@@ -58,9 +58,9 @@ export default function StatusPanel({ initiatives }: { initiatives: Initiativ[] 
       </div>
 
       <Fordeling
-        title="Fordeling per status"
+        title="Fordeling per fase"
         total={total}
-        rows={statusOptions.map((s) => ({ label: statusLabels[s], count: tell(initiatives, (i) => i.status, s) }))}
+        rows={faseOptions.map((s) => ({ label: faseLabels[s], count: tell(initiatives, (i) => i.fase, s) }))}
       />
 
       <Fordeling

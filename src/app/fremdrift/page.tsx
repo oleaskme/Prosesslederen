@@ -3,7 +3,7 @@
 import { useMemo, useState } from "react";
 import { useAppData } from "@/hooks/useAppData";
 import { getProcessOptions, getProcessLabel } from "@/lib/processHelpers";
-import { fremdriftLabels, fremdriftOptions, ragLabels, ragOptions, statusLabels } from "@/lib/labels";
+import { faseLabels, fremdriftLabels, fremdriftOptions, ragLabels, ragOptions } from "@/lib/labels";
 import { RagBadge, Pill } from "@/components/Badges";
 import InitiativeModal from "@/components/InitiativeModal";
 import { selectClass } from "@/lib/ui";
@@ -93,7 +93,7 @@ export default function FremdriftPage() {
                     </div>
                     <p className="mt-1 text-xs text-slate-500">{getProcessLabel(hierarchy, i.berortProcessId)}</p>
                     <div className="mt-2.5 flex flex-wrap gap-1.5">
-                      <Pill>{statusLabels[i.status]}</Pill>
+                      <Pill>{faseLabels[i.fase]}</Pill>
                     </div>
                   </button>
                 ))}
