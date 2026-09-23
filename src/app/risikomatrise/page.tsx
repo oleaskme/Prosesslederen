@@ -10,13 +10,13 @@ import type { Initiativ, RisikoSkala } from "@/lib/types";
 function cellFarge(score: number) {
   if (score <= 4) return "bg-emerald-700";
   if (score >= 8) return "bg-red-700";
-  return "bg-yellow-100";
+  return "bg-yellow-300";
 }
 
 function dotFarge(score: number) {
   if (score <= 4) return "bg-emerald-400";
   if (score >= 8) return "bg-red-400";
-  return "bg-yellow-500";
+  return "bg-yellow-600";
 }
 
 const bokstaver = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
