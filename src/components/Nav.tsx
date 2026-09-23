@@ -8,6 +8,7 @@ const faner = [
   { href: "/prioriteringsmatrise", label: "Prioriteringsmatrise" },
   { href: "/risikomatrise", label: "Risikomatrise" },
   { href: "/fremdrift", label: "Fremdrift" },
+  { href: "/ki-assistent", label: "KI Assistent" },
   { href: "/admin", label: "Admin" },
 ];
 
