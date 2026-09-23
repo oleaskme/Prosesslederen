@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useAppData } from "@/hooks/useAppData";
-import { analyserPortefolje } from "@/lib/kiAnalyse";
+import { analyserPortefolje, effektTiltak, overlappTiltak, prioritetTiltak, risikoTiltak } from "@/lib/kiAnalyse";
 import { getProcessLabel } from "@/lib/processHelpers";
 import { buttonPrimary, cardAccent, inputClass } from "@/lib/ui";
 
@@ -124,17 +124,14 @@ export default function KiAssistentPage() {
       <div className="grid gap-6 lg:grid-cols-[1.1fr_auto_1.4fr]">
         <div className="space-y-4">
           <div className={cardAccent("rose")}>
-            <h2 className="text-sm font-semibold uppercase tracking-wide text-slate-500">Risikovarsler</h2>
-            {analyse.risikovarsler.length === 0 ? (
-              <p className="mt-2 text-sm text-slate-500">Ingen initiativer peker seg ut med høy risiko akkurat nå.</p>
-            ) : (
+            <h2 className="text-sm font-semibold uppercase tracking-wide text-slate-500">Risiko</h2>
+            <p className="mt-2 text-sm text-slate-700">{risikoTiltak(analyse)}</p>
+            {analyse.risikovarsler.length > 0 && (
               <ul className="mt-2 space-y-1.5 text-sm">
                 {analyse.risikovarsler.map((i) => (
-                  <li key={i.id} className="text-slate-700">
-                    <span className="font-medium">{i.navn}</span>
-                    <span className="text-slate-400"> · RAG {i.ragStatus}, risiko {i.risikoSannsynlighet}×
-                      {i.risikoKonsekvens}
-                    </span>
+                  <li key={i.id} className="text-slate-500">
+                    <span className="font-medium text-slate-700">{i.navn}</span>
+                    <span> · RAG {i.ragStatus}, risiko {i.risikoSannsynlighet}×{i.risikoKonsekvens}</span>
                   </li>
                 ))}
               </ul>
@@ -142,31 +139,19 @@ export default function KiAssistentPage() {
           </div>
 
           <div className={cardAccent("amber")}>
-            <h2 className="text-sm font-semibold uppercase tracking-wide text-slate-500">Svak effektmåling</h2>
-            {analyse.svakEffektmaaling.length === 0 ? (
-              <p className="mt-2 text-sm text-slate-500">Alle initiativer har en beskrevet effektmåling.</p>
-            ) : (
-              <ul className="mt-2 space-y-1.5 text-sm">
-                {analyse.svakEffektmaaling.map((i) => (
-                  <li key={i.id} className="text-slate-700">
-                    <span className="font-medium">{i.navn}</span>
-                    <span className="text-slate-400"> · effektmåling bør konkretiseres</span>
-                  </li>
-                ))}
-              </ul>
-            )}
+            <h2 className="text-sm font-semibold uppercase tracking-wide text-slate-500">Effektmåling</h2>
+            <p className="mt-2 text-sm text-slate-700">{effektTiltak(analyse)}</p>
           </div>
 
           <div className={cardAccent("sky")}>
-            <h2 className="text-sm font-semibold uppercase tracking-wide text-slate-500">Mulig overlapp</h2>
-            {analyse.muligOverlapp.length === 0 ? (
-              <p className="mt-2 text-sm text-slate-500">Ingen initiativer deler samme (del)prosess i dag.</p>
-            ) : (
+            <h2 className="text-sm font-semibold uppercase tracking-wide text-slate-500">Overlapp</h2>
+            <p className="mt-2 text-sm text-slate-700">{overlappTiltak(analyse)}</p>
+            {analyse.muligOverlapp.length > 0 && (
               <ul className="mt-2 space-y-2 text-sm">
                 {analyse.muligOverlapp.map((gruppe) => (
-                  <li key={gruppe.berortProcessId} className="text-slate-700">
-                    <span className="font-medium">{getProcessLabel(hierarchy, gruppe.berortProcessId)}</span>
-                    <ul className="ml-3 list-disc text-slate-500">
+                  <li key={gruppe.berortProcessId} className="text-slate-500">
+                    <span className="font-medium text-slate-700">{getProcessLabel(hierarchy, gruppe.berortProcessId)}</span>
+                    <ul className="ml-3 list-disc">
                       {gruppe.initiativer.map((i) => (
                         <li key={i.id}>{i.navn}</li>
                       ))}
@@ -178,15 +163,17 @@ export default function KiAssistentPage() {
           </div>
 
           <div className={cardAccent("indigo")}>
-            <h2 className="text-sm font-semibold uppercase tracking-wide text-slate-500">Foreslått prioritet</h2>
-            <p className="mt-1 text-xs text-slate-400">Basert på høyest risiko og kompleksitet, blant initiativer som ikke er avsluttet.</p>
-            <ol className="mt-2 space-y-1.5 text-sm">
-              {analyse.anbefaltPrioritet.map((i, idx) => (
-                <li key={i.id} className="text-slate-700">
-                  <span className="font-medium">{idx + 1}. {i.navn}</span>
-                </li>
-              ))}
-            </ol>
+            <h2 className="text-sm font-semibold uppercase tracking-wide text-slate-500">Prioritering</h2>
+            <p className="mt-2 text-sm text-slate-700">{prioritetTiltak(analyse)}</p>
+            {analyse.anbefaltPrioritet.length > 0 && (
+              <ol className="mt-2 space-y-1.5 text-sm">
+                {analyse.anbefaltPrioritet.map((i, idx) => (
+                  <li key={i.id} className="text-slate-700">
+                    <span className="font-medium">{idx + 1}. {i.navn}</span>
+                  </li>
+                ))}
+              </ol>
+            )}
           </div>
         </div>
 
