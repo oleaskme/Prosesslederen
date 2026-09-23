@@ -15,7 +15,9 @@ export default function PrioriteringsmatrisePage() {
   const processOptions = useMemo(() => (hierarchy ? getProcessOptions(hierarchy) : []), [hierarchy]);
 
   function cellItems(tid: Tidsperspektiv, kompl: Kompleksitet) {
-    return (initiatives ?? []).filter((i) => i.tidsperspektiv === tid && i.kompleksitet === kompl);
+    return (initiatives ?? []).filter(
+      (i) => i.tidsperspektiv === tid && i.kompleksitet === kompl && i.fremdriftsstatus !== "avsluttet"
+    );
   }
 
   async function etterEndring() {
@@ -62,7 +64,11 @@ export default function PrioriteringsmatrisePage() {
                         <button
                           key={i.id}
                           onClick={() => setValgt(i)}
-                          className="block w-full rounded-md border border-slate-200 bg-indigo-50/40 px-2 py-1.5 text-left text-xs hover:border-indigo-300 hover:bg-white"
+                          className={`block w-full rounded-md bg-indigo-50/40 px-2 py-1.5 text-left text-xs hover:bg-white ${
+                            i.fremdriftsstatus === "pågående"
+                              ? "border-4 border-emerald-500 hover:border-emerald-600"
+                              : "border border-slate-200 hover:border-indigo-300"
+                          }`}
                         >
                           <div className="flex items-center justify-between gap-2">
                             <span className="font-medium text-slate-800">{i.navn}</span>
