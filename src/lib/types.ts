@@ -18,8 +18,6 @@ export type Tidsperspektiv = "na" | "neste9mnd" | "1til3aar";
 
 export type Kompleksitet = "lav" | "høy";
 
-export type Nivaa = "lav" | "middels" | "høy";
-
 export type RisikoSkala = 1 | 2 | 3 | 4 | 5;
 
 export interface ProcessLevel1 {
@@ -64,21 +62,18 @@ export interface Initiativ {
   berortProcessId: string;
   effektForventet: string;
   effektMaaling: string;
-  ressursbruksNivaa: Nivaa;
-  ressursbruksKommentar: string;
   prosesseierId: string;
+  subjectMatterExpertId: string;
   status: InitiativStatus;
   fremdriftsstatus: Fremdriftsstatus;
   ragStatus: RagStatus;
   tidsperspektiv: Tidsperspektiv;
   kompleksitet: Kompleksitet;
-  avhengigheter: string;
-  leverandorbinding: boolean;
-  leverandorbindingKommentar: string;
+  avhengighetTeknologi: string;
+  avhengighetProsess: string;
+  avhengighetKompetanse: string;
   risikoSannsynlighet: RisikoSkala;
   risikoKonsekvens: RisikoSkala;
-  gevinstMaalbar: boolean;
-  gevinstMaalbarKommentar: string;
   opprettet: string;
   oppdatert: string;
 }

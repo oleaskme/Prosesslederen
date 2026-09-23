@@ -24,7 +24,7 @@ export default function PrioriteringsmatrisePage() {
 
   const processOptions = useMemo(() => (hierarchy ? getProcessOptions(hierarchy) : []), [hierarchy]);
 
-  function gevinsteierNavn(prosesseierId: string) {
+  function prosesseierNavn(prosesseierId: string) {
     return eiere.find((e) => e.id === prosesseierId)?.navn ?? "Ikke satt";
   }
 
@@ -88,7 +88,7 @@ export default function PrioriteringsmatrisePage() {
                             <span className="font-medium text-slate-800">{i.navn}</span>
                             <RagBadge status={i.ragStatus} />
                           </div>
-                          <div className="mt-0.5 text-slate-500">{gevinsteierNavn(i.prosesseierId)}</div>
+                          <div className="mt-0.5 text-slate-500">{prosesseierNavn(i.prosesseierId)}</div>
                         </button>
                       ))}
                       {items.length === 0 && (

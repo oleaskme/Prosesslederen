@@ -2,7 +2,6 @@ import type {
   Fremdriftsstatus,
   InitiativStatus,
   Kompleksitet,
-  Nivaa,
   ProcessRelevans,
   RagStatus,
   RisikoSkala,
@@ -61,14 +60,6 @@ export const kompleksitetLabels: Record<Kompleksitet, string> = {
 };
 
 export const kompleksitetOptions: Kompleksitet[] = ["lav", "høy"];
-
-export const nivaaLabels: Record<Nivaa, string> = {
-  lav: "Lav",
-  middels: "Middels",
-  "høy": "Høy",
-};
-
-export const nivaaOptions: Nivaa[] = ["lav", "middels", "høy"];
 
 export const risikoSkalaLabels: Record<RisikoSkala, string> = {
   1: "Svært lav",

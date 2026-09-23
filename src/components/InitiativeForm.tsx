@@ -6,8 +6,6 @@ import {
   fremdriftOptions,
   kompleksitetLabels,
   kompleksitetOptions,
-  nivaaLabels,
-  nivaaOptions,
   ragLabels,
   ragOptions,
   risikoSkalaLabels,
@@ -19,7 +17,7 @@ import {
 } from "@/lib/labels";
 import type { ProcessOption } from "@/lib/processHelpers";
 import type { Initiativ, ProsessEier } from "@/lib/types";
-import { buttonDanger, buttonGhost, buttonPrimary, inputClass } from "@/lib/ui";
+import { buttonDanger, buttonGhost, buttonPrimary, cardAccent, inputClass } from "@/lib/ui";
 
 export type InitiativFormValues = Omit<Initiativ, "id" | "opprettet" | "oppdatert">;
 
@@ -29,21 +27,18 @@ const tomtSkjema: InitiativFormValues = {
   berortProcessId: "",
   effektForventet: "",
   effektMaaling: "",
-  ressursbruksNivaa: "lav",
-  ressursbruksKommentar: "",
   prosesseierId: "",
+  subjectMatterExpertId: "",
   status: "idé",
   fremdriftsstatus: "ikke påbegynt",
   ragStatus: "green",
   tidsperspektiv: "na",
   kompleksitet: "lav",
-  avhengigheter: "",
-  leverandorbinding: false,
-  leverandorbindingKommentar: "",
+  avhengighetTeknologi: "",
+  avhengighetProsess: "",
+  avhengighetKompetanse: "",
   risikoSannsynlighet: 1,
   risikoKonsekvens: 1,
-  gevinstMaalbar: false,
-  gevinstMaalbarKommentar: "",
 };
 
 function Felt({ label, children }: { label: string; children: React.ReactNode }) {
@@ -52,6 +47,23 @@ function Felt({ label, children }: { label: string; children: React.ReactNode })
       <span className="mb-1 block text-sm font-medium text-slate-700">{label}</span>
       {children}
     </label>
+  );
+}
+
+function Seksjon({
+  tittel,
+  farge,
+  children,
+}: {
+  tittel: string;
+  farge: Parameters<typeof cardAccent>[0];
+  children: React.ReactNode;
+}) {
+  return (
+    <div className={cardAccent(farge)}>
+      <h3 className="mb-3 text-sm font-semibold uppercase tracking-wide text-slate-500">{tittel}</h3>
+      <div className="space-y-4">{children}</div>
+    </div>
   );
 }
 
@@ -78,21 +90,18 @@ export default function InitiativeForm({
           berortProcessId: initial.berortProcessId,
           effektForventet: initial.effektForventet,
           effektMaaling: initial.effektMaaling,
-          ressursbruksNivaa: initial.ressursbruksNivaa,
-          ressursbruksKommentar: initial.ressursbruksKommentar,
           prosesseierId: initial.prosesseierId,
+          subjectMatterExpertId: initial.subjectMatterExpertId,
           status: initial.status,
           fremdriftsstatus: initial.fremdriftsstatus,
           ragStatus: initial.ragStatus,
           tidsperspektiv: initial.tidsperspektiv,
           kompleksitet: initial.kompleksitet,
-          avhengigheter: initial.avhengigheter,
-          leverandorbinding: initial.leverandorbinding,
-          leverandorbindingKommentar: initial.leverandorbindingKommentar,
+          avhengighetTeknologi: initial.avhengighetTeknologi,
+          avhengighetProsess: initial.avhengighetProsess,
+          avhengighetKompetanse: initial.avhengighetKompetanse,
           risikoSannsynlighet: initial.risikoSannsynlighet,
           risikoKonsekvens: initial.risikoKonsekvens,
-          gevinstMaalbar: initial.gevinstMaalbar,
-          gevinstMaalbarKommentar: initial.gevinstMaalbarKommentar,
         }
       : { ...tomtSkjema, berortProcessId: processOptions[0]?.id ?? "" }
   );
@@ -142,219 +151,206 @@ export default function InitiativeForm({
         </div>
       )}
 
-      <Felt label="Navn">
-        <input
-          className={inputClass}
-          value={values.navn}
-          onChange={(e) => set("navn", e.target.value)}
-          placeholder="Kort, gjenkjennelig navn på initiativet"
-        />
-      </Felt>
-
-      <Felt label="Kort beskrivelse">
-        <textarea
-          className={inputClass}
-          rows={2}
-          value={values.beskrivelse}
-          onChange={(e) => set("beskrivelse", e.target.value)}
-        />
-      </Felt>
-
-      <Felt label="Berørt (del)prosess">
-        <select
-          className={inputClass}
-          value={values.berortProcessId}
-          onChange={(e) => set("berortProcessId", e.target.value)}
-        >
-          <option value="" disabled>
-            Velg prosess
-          </option>
-          {processOptions.map((p) => (
-            <option key={p.id} value={p.id}>
-              {p.label}
-            </option>
-          ))}
-        </select>
-      </Felt>
-
-      <div className="grid gap-4 sm:grid-cols-2">
-        <Felt label="Effekt, forventet">
-          <textarea
-            className={inputClass}
-            rows={2}
-            value={values.effektForventet}
-            onChange={(e) => set("effektForventet", e.target.value)}
-          />
-        </Felt>
-        <Felt label="Hvordan effekten skal måles">
-          <textarea
-            className={inputClass}
-            rows={2}
-            value={values.effektMaaling}
-            onChange={(e) => set("effektMaaling", e.target.value)}
-          />
-        </Felt>
-      </div>
-
-      <div className="grid gap-4 sm:grid-cols-2">
-        <Felt label="Ressursbruk, anslått nivå">
-          <select
-            className={inputClass}
-            value={values.ressursbruksNivaa}
-            onChange={(e) => set("ressursbruksNivaa", e.target.value as InitiativFormValues["ressursbruksNivaa"])}
-          >
-            {nivaaOptions.map((n) => (
-              <option key={n} value={n}>
-                {nivaaLabels[n]}
-              </option>
-            ))}
-          </select>
-        </Felt>
-        <Felt label="Ressursbruk, kommentar">
+      <Seksjon tittel="Om initiativet" farge="slate">
+        <Felt label="Navn">
           <input
             className={inputClass}
-            value={values.ressursbruksKommentar}
-            onChange={(e) => set("ressursbruksKommentar", e.target.value)}
+            value={values.navn}
+            onChange={(e) => set("navn", e.target.value)}
+            placeholder="Kort, gjenkjennelig navn på initiativet"
           />
         </Felt>
-      </div>
 
-      <Felt label="Gevinsteier (navngitt person i linjen)">
-        <select
-          className={inputClass}
-          value={values.prosesseierId}
-          onChange={(e) => set("prosesseierId", e.target.value)}
-        >
-          <option value="">Ikke satt</option>
-          {eiere.map((e) => (
-            <option key={e.id} value={e.id}>
-              {e.navn} · {e.avdeling}
+        <Felt label="Kort beskrivelse">
+          <textarea
+            className={inputClass}
+            rows={2}
+            value={values.beskrivelse}
+            onChange={(e) => set("beskrivelse", e.target.value)}
+          />
+        </Felt>
+
+        <Felt label="Berørt (del)prosess">
+          <select
+            className={inputClass}
+            value={values.berortProcessId}
+            onChange={(e) => set("berortProcessId", e.target.value)}
+          >
+            <option value="" disabled>
+              Velg prosess
             </option>
-          ))}
-        </select>
-      </Felt>
+            {processOptions.map((p) => (
+              <option key={p.id} value={p.id}>
+                {p.label}
+              </option>
+            ))}
+          </select>
+        </Felt>
+      </Seksjon>
 
-      <div className="grid gap-4 sm:grid-cols-3">
-        <Felt label="Status">
-          <select
-            className={inputClass}
-            value={values.status}
-            onChange={(e) => set("status", e.target.value as InitiativFormValues["status"])}
-          >
-            {statusOptions.map((s) => (
-              <option key={s} value={s}>
-                {statusLabels[s]}
-              </option>
-            ))}
-          </select>
-        </Felt>
-        <Felt label="Fremdriftsstatus">
-          <select
-            className={`${inputClass} ${!fremdriftRelevant ? "opacity-50" : ""}`}
-            value={values.fremdriftsstatus}
-            onChange={(e) => set("fremdriftsstatus", e.target.value as InitiativFormValues["fremdriftsstatus"])}
-            disabled={!fremdriftRelevant}
-          >
-            {fremdriftOptions.map((f) => (
-              <option key={f} value={f}>
-                {fremdriftLabels[f]}
-              </option>
-            ))}
-          </select>
-          {!fremdriftRelevant && (
-            <span className="mt-1 block text-xs text-slate-400">
-              Kun relevant når status er pågår eller i drift.
-            </span>
-          )}
-        </Felt>
-        <Felt label="RAG-status">
-          <select
-            className={inputClass}
-            value={values.ragStatus}
-            onChange={(e) => set("ragStatus", e.target.value as InitiativFormValues["ragStatus"])}
-          >
-            {ragOptions.map((r) => (
-              <option key={r} value={r}>
-                {ragLabels[r]}
-              </option>
-            ))}
-          </select>
-        </Felt>
-      </div>
-
-      <div className="grid gap-4 sm:grid-cols-2">
-        <Felt label="Tidsperspektiv">
-          <select
-            className={inputClass}
-            value={values.tidsperspektiv}
-            onChange={(e) => set("tidsperspektiv", e.target.value as InitiativFormValues["tidsperspektiv"])}
-          >
-            {tidsperspektivOptions.map((t) => (
-              <option key={t} value={t}>
-                {tidsperspektivLabels[t]}
-              </option>
-            ))}
-          </select>
-        </Felt>
-        <Felt label="Kompleksitet">
-          <select
-            className={inputClass}
-            value={values.kompleksitet}
-            onChange={(e) => set("kompleksitet", e.target.value as InitiativFormValues["kompleksitet"])}
-          >
-            {kompleksitetOptions.map((k) => (
-              <option key={k} value={k}>
-                {kompleksitetLabels[k]}
-              </option>
-            ))}
-          </select>
-        </Felt>
-      </div>
-
-      <Felt label="Avhengigheter (for eksempel andre systemendringer)">
-        <textarea
-          className={inputClass}
-          rows={2}
-          value={values.avhengigheter}
-          onChange={(e) => set("avhengigheter", e.target.value)}
-        />
-      </Felt>
-
-      <div className="grid gap-4 sm:grid-cols-2">
-        <div>
-          <span className="mb-1 block text-sm font-medium text-slate-700">Leverandørbinding</span>
-          <div className="flex gap-4 py-1">
-            <label className="flex items-center gap-1.5 text-sm text-slate-700">
-              <input
-                type="radio"
-                className="accent-indigo-600"
-                checked={values.leverandorbinding}
-                onChange={() => set("leverandorbinding", true)}
-              />
-              Ja
-            </label>
-            <label className="flex items-center gap-1.5 text-sm text-slate-700">
-              <input
-                type="radio"
-                className="accent-indigo-600"
-                checked={!values.leverandorbinding}
-                onChange={() => set("leverandorbinding", false)}
-              />
-              Nei
-            </label>
-          </div>
+      <Seksjon tittel="Effekt" farge="indigo">
+        <div className="grid gap-4 sm:grid-cols-2">
+          <Felt label="Effekt, forventet">
+            <textarea
+              className={inputClass}
+              rows={2}
+              value={values.effektForventet}
+              onChange={(e) => set("effektForventet", e.target.value)}
+            />
+          </Felt>
+          <Felt label="Hvordan effekten skal måles">
+            <textarea
+              className={inputClass}
+              rows={2}
+              value={values.effektMaaling}
+              onChange={(e) => set("effektMaaling", e.target.value)}
+            />
+          </Felt>
         </div>
-        <Felt label="Leverandørbinding, kommentar">
-          <input
-            className={inputClass}
-            value={values.leverandorbindingKommentar}
-            onChange={(e) => set("leverandorbindingKommentar", e.target.value)}
-          />
-        </Felt>
-      </div>
+      </Seksjon>
 
-      <div>
-        <span className="mb-1 block text-sm font-medium text-slate-700">Risiko for tillit</span>
+      <Seksjon tittel="Ansvarlige" farge="teal">
+        <div className="grid gap-4 sm:grid-cols-2">
+          <Felt label="Prosesseier (navngitt person i linjen)">
+            <select
+              className={inputClass}
+              value={values.prosesseierId}
+              onChange={(e) => set("prosesseierId", e.target.value)}
+            >
+              <option value="">Ikke satt</option>
+              {eiere.map((e) => (
+                <option key={e.id} value={e.id}>
+                  {e.navn} · {e.avdeling}
+                </option>
+              ))}
+            </select>
+          </Felt>
+          <Felt label="Subject matter expert">
+            <select
+              className={inputClass}
+              value={values.subjectMatterExpertId}
+              onChange={(e) => set("subjectMatterExpertId", e.target.value)}
+            >
+              <option value="">Ikke satt</option>
+              {eiere.map((e) => (
+                <option key={e.id} value={e.id}>
+                  {e.navn} · {e.avdeling}
+                </option>
+              ))}
+            </select>
+          </Felt>
+        </div>
+      </Seksjon>
+
+      <Seksjon tittel="Status og fremdrift" farge="amber">
+        <div className="grid gap-4 sm:grid-cols-3">
+          <Felt label="Status">
+            <select
+              className={inputClass}
+              value={values.status}
+              onChange={(e) => set("status", e.target.value as InitiativFormValues["status"])}
+            >
+              {statusOptions.map((s) => (
+                <option key={s} value={s}>
+                  {statusLabels[s]}
+                </option>
+              ))}
+            </select>
+          </Felt>
+          <Felt label="Fremdriftsstatus">
+            <select
+              className={`${inputClass} ${!fremdriftRelevant ? "opacity-50" : ""}`}
+              value={values.fremdriftsstatus}
+              onChange={(e) => set("fremdriftsstatus", e.target.value as InitiativFormValues["fremdriftsstatus"])}
+              disabled={!fremdriftRelevant}
+            >
+              {fremdriftOptions.map((f) => (
+                <option key={f} value={f}>
+                  {fremdriftLabels[f]}
+                </option>
+              ))}
+            </select>
+            {!fremdriftRelevant && (
+              <span className="mt-1 block text-xs text-slate-400">
+                Kun relevant når status er pågår eller i drift.
+              </span>
+            )}
+          </Felt>
+          <Felt label="RAG-status">
+            <select
+              className={inputClass}
+              value={values.ragStatus}
+              onChange={(e) => set("ragStatus", e.target.value as InitiativFormValues["ragStatus"])}
+            >
+              {ragOptions.map((r) => (
+                <option key={r} value={r}>
+                  {ragLabels[r]}
+                </option>
+              ))}
+            </select>
+          </Felt>
+        </div>
+
+        <div className="grid gap-4 sm:grid-cols-2">
+          <Felt label="Tidsperspektiv">
+            <select
+              className={inputClass}
+              value={values.tidsperspektiv}
+              onChange={(e) => set("tidsperspektiv", e.target.value as InitiativFormValues["tidsperspektiv"])}
+            >
+              {tidsperspektivOptions.map((t) => (
+                <option key={t} value={t}>
+                  {tidsperspektivLabels[t]}
+                </option>
+              ))}
+            </select>
+          </Felt>
+          <Felt label="Kompleksitet">
+            <select
+              className={inputClass}
+              value={values.kompleksitet}
+              onChange={(e) => set("kompleksitet", e.target.value as InitiativFormValues["kompleksitet"])}
+            >
+              {kompleksitetOptions.map((k) => (
+                <option key={k} value={k}>
+                  {kompleksitetLabels[k]}
+                </option>
+              ))}
+            </select>
+          </Felt>
+        </div>
+      </Seksjon>
+
+      <Seksjon tittel="Avhengigheter" farge="sky">
+        <div className="grid gap-4 sm:grid-cols-3">
+          <Felt label="Teknologi">
+            <textarea
+              className={inputClass}
+              rows={2}
+              value={values.avhengighetTeknologi}
+              onChange={(e) => set("avhengighetTeknologi", e.target.value)}
+            />
+          </Felt>
+          <Felt label="Prosess">
+            <textarea
+              className={inputClass}
+              rows={2}
+              value={values.avhengighetProsess}
+              onChange={(e) => set("avhengighetProsess", e.target.value)}
+            />
+          </Felt>
+          <Felt label="Kompetanse">
+            <textarea
+              className={inputClass}
+              rows={2}
+              value={values.avhengighetKompetanse}
+              onChange={(e) => set("avhengighetKompetanse", e.target.value)}
+            />
+          </Felt>
+        </div>
+      </Seksjon>
+
+      <Seksjon tittel="Risikovurdering" farge="rose">
         <div className="grid gap-4 sm:grid-cols-2">
           <Felt label="Sannsynlighet">
             <select
@@ -383,40 +379,7 @@ export default function InitiativeForm({
             </select>
           </Felt>
         </div>
-      </div>
-
-      <div className="grid gap-4 sm:grid-cols-2">
-        <div>
-          <span className="mb-1 block text-sm font-medium text-slate-700">Kan gevinsten måles</span>
-          <div className="flex gap-4 py-1">
-            <label className="flex items-center gap-1.5 text-sm text-slate-700">
-              <input
-                type="radio"
-                className="accent-indigo-600"
-                checked={values.gevinstMaalbar}
-                onChange={() => set("gevinstMaalbar", true)}
-              />
-              Ja
-            </label>
-            <label className="flex items-center gap-1.5 text-sm text-slate-700">
-              <input
-                type="radio"
-                className="accent-indigo-600"
-                checked={!values.gevinstMaalbar}
-                onChange={() => set("gevinstMaalbar", false)}
-              />
-              Nei
-            </label>
-          </div>
-        </div>
-        <Felt label="Kan gevinsten måles, kommentar">
-          <input
-            className={inputClass}
-            value={values.gevinstMaalbarKommentar}
-            onChange={(e) => set("gevinstMaalbarKommentar", e.target.value)}
-          />
-        </Felt>
-      </div>
+      </Seksjon>
 
       <div className="flex items-center justify-between border-t border-slate-200 pt-4">
         <div>

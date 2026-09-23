@@ -65,7 +65,7 @@ export default function RisikomatrisePage() {
       <div>
         <h1 className="text-xl font-semibold text-slate-900">Risikomatrise</h1>
         <p className="text-sm text-slate-500">
-          Risiko for tillit per initiativ, på en skala fra 1 (svært lav) til 5 (svært høy) for sannsynlighet og
+          Risikovurdering per initiativ, på en skala fra 1 (svært lav) til 5 (svært høy) for sannsynlighet og
           konsekvens. Klikk på et initiativ for å åpne detaljene.
         </p>
       </div>

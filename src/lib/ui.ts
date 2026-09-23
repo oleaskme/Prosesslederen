@@ -23,6 +23,8 @@ const accentBorders = {
   teal: "border-l-teal-500",
   amber: "border-l-amber-500",
   rose: "border-l-rose-500",
+  sky: "border-l-sky-500",
+  slate: "border-l-slate-400",
 } as const;
 
 export function cardAccent(color: keyof typeof accentBorders = "indigo") {

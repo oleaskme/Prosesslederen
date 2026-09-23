@@ -29,7 +29,7 @@ export default function InitiativoversiktPage() {
 
   const processOptions = useMemo(() => (hierarchy ? getProcessOptions(hierarchy) : []), [hierarchy]);
 
-  function gevinsteierNavn(prosesseierId: string) {
+  function prosesseierNavn(prosesseierId: string) {
     return eiere.find((e) => e.id === prosesseierId)?.navn ?? "Ikke satt";
   }
 
@@ -117,7 +117,7 @@ export default function InitiativoversiktPage() {
               <th className="px-4 py-2">Tidsperspektiv</th>
               <th className="px-4 py-2">Kompleksitet</th>
               <th className="px-4 py-2">RAG</th>
-              <th className="px-4 py-2">Gevinsteier</th>
+              <th className="px-4 py-2">Prosesseier</th>
             </tr>
           </thead>
           <tbody className="divide-y divide-slate-100">
@@ -137,7 +137,7 @@ export default function InitiativoversiktPage() {
                 <td className="px-4 py-2">
                   <RagBadge status={i.ragStatus} />
                 </td>
-                <td className="px-4 py-2 text-slate-600">{gevinsteierNavn(i.prosesseierId)}</td>
+                <td className="px-4 py-2 text-slate-600">{prosesseierNavn(i.prosesseierId)}</td>
               </tr>
             ))}
             {filtrert.length === 0 && (

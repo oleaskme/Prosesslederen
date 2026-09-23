@@ -9,9 +9,8 @@ export default function ProsesseierePanel() {
       <div>
         <h2 className="text-lg font-semibold text-slate-900">Prosesseiere</h2>
         <p className="mt-1 text-sm text-slate-500">
-          Prosesseier er personen i linjen som eier prosessen, og er den samme personen som
-          gevinsteier på initiativet. Registeret under brukes derfor som kilde for feltet
-          Gevinsteier i fanene Initiativoversikt og Initiativer.
+          Prosesseier er personen i linjen som eier prosessen og initiativet. Registeret under
+          brukes som kilde for feltet Prosesseier i fanene Initiativoversikt og Initiativer.
         </p>
       </div>
 
